@@ -27,6 +27,7 @@ class _FillingDataState extends State<FillingData> {
   late final TextEditingController controllerFlat;
   late final TextEditingController controllerComment;
   late final TextEditingController controllerNumber;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _FillingDataState extends State<FillingData> {
     controllerFlat = TextEditingController();
     controllerComment = TextEditingController();
     controllerNumber = TextEditingController();
+    _scrollController = ScrollController();
   }
 
   @override
@@ -240,6 +242,8 @@ class _FillingDataState extends State<FillingData> {
                                       TextField(
                                         minLines: 3,
                                         maxLines: 3,
+                                        scrollPadding:
+                                            const EdgeInsets.only(bottom: 218),
                                         cursorColor: AppConfig.blueColor,
                                         controller: controllerComment,
                                         onChanged: (_) {
@@ -279,7 +283,7 @@ class _FillingDataState extends State<FillingData> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 21),
+                        const SizedBox(height: 48),
 
                         GradientButton(
                           onTap: () async {},
