@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
 class AppConfig {
+  // Брэнд
+  static const String logo = 'Super Clean';
+
   /// Валюта
   static const String currency = 'руб';
   static const String currencySymbol = '₽';
 
-  ///Цвета
+  /*------------------Цвета-----------------------------*/
+  ///Базовые
   static const Color whiteColor = Colors.white;
   static const Color blackColor = Colors.black;
   static const Color pinkColor = Color(0xFFF59CEC);
@@ -14,7 +18,7 @@ class AppConfig {
   // Трекер позиции в PageView
   static const Color planPositionDefaultColor = Color(0xFFD8D8D8);
 
-  /// обязательное поле
+  /// Обязательное поле
   static const Color textFieldEmptyColor = Color(0xFFD9D9D9);
   static const Color textFieldGradientStart = Color(0xFFF59CEC);
   static const Color textFieldGradientEnd = Color(0xFF3DBDFF);

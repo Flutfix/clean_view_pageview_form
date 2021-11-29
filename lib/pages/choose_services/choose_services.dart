@@ -224,7 +224,7 @@ class _ChooseServicesState extends State<ChooseServices> {
                           },
                         ),
                       ),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: 23),
                       GradientButton(
                         text: 'Продолжить',
                         startColor: AppConfig.stepsGradientStartThird,
