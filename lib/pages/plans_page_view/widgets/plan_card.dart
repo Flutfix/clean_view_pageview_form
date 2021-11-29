@@ -1,28 +1,37 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/models/info_card_model.dart';
 
 class PlanCard extends StatelessWidget {
   final InfoCardModel item;
+  final Function()? onTap;
   const PlanCard({
     Key? key,
     required this.item,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 36.0),
-      child: Stack(alignment: Alignment.center, children: [
-        Image.asset(
-          item.image,
-          width: width,
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(28),
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 20, color: AppConfig.blackColor.withOpacity(0.005))
+          ],
         ),
-        Align(
-          alignment: Alignment.center,
-          child: Column(
+        child: Stack(alignment: Alignment.center, children: [
+          Image.asset(
+            item.image,
+            fit: BoxFit.fill,
+          ),
+          Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
@@ -52,9 +61,9 @@ class PlanCard extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
     );
   }
 }

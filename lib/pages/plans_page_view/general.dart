@@ -95,35 +95,41 @@ class _GeneralState extends State<General> {
             const CustomAppBar(),
             Expanded(
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     /// Карточки с площадью и ценой
                     SizedBox(
-                      height: height * 303 / 812,
                       width: width,
-                      child: Swipe(
-                        onSwipeLeft: () {
-                          if (currentIndex < 2) {
-                            setPage(currentIndex + 1);
-                          }
+                      height: width - 52,
+                      child: PageView(
+                        physics: const BouncingScrollPhysics(),
+                        onPageChanged: (index) {
+                          setState(() {
+                            currentIndex = index;
+                            setconfigurationPage(index);
+                          });
                         },
-                        onSwipeRight: () {
-                          if (currentIndex > 0) {
-                            setPage(currentIndex - 1);
-                          }
-                        },
-                        child: PageView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          controller: pageControllerPage,
-                          children: List.generate(
-                            cardsList.length,
-                            (index) => PlanCard(
+                        controller: pageControllerPage,
+                        children: List.generate(
+                          cardsList.length,
+                          (index) => Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 36.0),
+                            child: PlanCard(
                               item: cardsList[index],
+                              onTap: () {
+                                Navigator.of(context)
+                                    .push(CustomPageRoute(ChooseServices(
+                                  currentPrice: cardsList[currentIndex].price,
+                                )));
+                              },
                             ),
                           ),
                         ),
                       ),
                     ),
+                    const SizedBox(height: 16),
 
                     /// Виджет позиции в PageView
                     Padding(
@@ -136,7 +142,7 @@ class _GeneralState extends State<General> {
                         colorEnd: stepsGradientEnd,
                       ),
                     ),
-                    const SizedBox(height: 21),
+                    const SizedBox(height: 23),
 
                     /// Белый контейнер с подробным описанием и кнопкой
                     Align(
@@ -194,7 +200,7 @@ class _GeneralState extends State<General> {
                                 startColor: buttonGradientStart,
                                 endColor: buttonGradientEnd,
                               ),
-                              const SizedBox(height: 60),
+                              const SizedBox(height: 40),
                             ],
                           ),
                         ),
@@ -206,15 +212,6 @@ class _GeneralState extends State<General> {
             ),
           ],
         ));
-  }
-
-  void setPage(int index) {
-    setState(() {
-      currentIndex = index;
-      setconfigurationPage(currentIndex);
-      pageControllerPage.animateToPage(index,
-          duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
-    });
   }
 
   void setconfigurationPage(int index) {

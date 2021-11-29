@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-const Map<String, dynamic> appConfig = {
-  'currency': '₽',
-  'currencySymbol': '₽',
-};
-
 class AppConfig {
   /// Валюта
   static const String currency = 'руб';
@@ -18,7 +13,6 @@ class AppConfig {
 
   // Трекер позиции в PageView
   static const Color planPositionDefaultColor = Color(0xFFD8D8D8);
-
 
   /// обязательное поле
   static const Color textFieldEmptyColor = Color(0xFFD9D9D9);

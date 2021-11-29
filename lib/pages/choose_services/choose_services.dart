@@ -7,6 +7,7 @@ import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
 import 'package:flutter_application_1/models/services.dart';
+import 'package:swipe/swipe.dart';
 
 class ChooseServices extends StatefulWidget {
   final int currentPrice;
@@ -44,205 +45,209 @@ class _ChooseServicesState extends State<ChooseServices> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: AppConfig.whiteColor,
-      body: Column(
-        children: [
-          const CustomAppBar(isBackArrow: true),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 10),
+    return Swipe(
+      onSwipeRight: () => Navigator.pop(context),
+      child: Scaffold(
+        backgroundColor: AppConfig.whiteColor,
+        body: Column(
+          children: [
+            const CustomAppBar(isBackArrow: true),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 10),
 
-                    /// Анимация
-                    Padding(
-                      padding: const EdgeInsets.only(left: 67, right: 66),
-                      child: Image.asset(
-                          'lib/assets/gif/meditation_mindfulness.gif'),
-                    ),
-                    const SizedBox(height: 57),
-
-                    /// Вид уборки
-                    DefaultContainer(
-                      child: Stack(
-                        children: [
-                          Row(
-                            children: [
-                              GestureDetector(
-                                behavior: HitTestBehavior.translucent,
-                                onTap: () {
-                                  setState(() {
-                                    indexServices = 0;
-                                    indexColorServices = 0;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 11, bottom: 15),
-                                  child: SizedBox(
-                                    width: (width - 44) / 3,
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        cleaningName[0],
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          color: AppConfig.pinkColor,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                behavior: HitTestBehavior.translucent,
-                                onTap: () {
-                                  setState(() {
-                                    indexServices = 1;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 11, bottom: 15),
-                                  child: SizedBox(
-                                    width: (width - 44) / 3,
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        cleaningName[1],
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: indexColorServices == 0
-                                              ? AppConfig.pinkColor
-                                              : AppConfig.blueColor,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                behavior: HitTestBehavior.translucent,
-                                onTap: () {
-                                  setState(() {
-                                    indexServices = 2;
-                                    indexColorServices = 2;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 11, bottom: 15),
-                                  child: SizedBox(
-                                    width: (width - 44) / 3,
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        cleaningName[2],
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          color: AppConfig.blueColor,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          AnimatedAlign(
-                            duration: const Duration(milliseconds: 300),
-                            alignment: indexServices == 0
-                                ? Alignment.centerLeft
-                                : indexServices == 1
-                                    ? Alignment.center
-                                    : Alignment.topRight,
-                            child: Container(
-                              width: (width - 44) / 3,
-                              padding:
-                                  const EdgeInsets.only(top: 11, bottom: 14),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(34),
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    AppConfig.textFieldGradientStart,
-                                    AppConfig.textFieldGradientEnd,
-                                  ],
-                                ),
-                              ),
-                              child: Text(
-                                cleaningName[indexServices],
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: AppConfig.whiteColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
+                      /// Анимация
+                      Padding(
+                        padding: const EdgeInsets.only(left: 67, right: 66),
+                        child: Image.asset(
+                            'lib/assets/gif/meditation_mindfulness.gif'),
                       ),
-                    ),
-                    const SizedBox(height: 17),
+                      const SizedBox(height: 57),
 
-                    ///Дополнительные услуги
-                    Column(
-                      children: List.generate(
-                        4,
-                        (index) {
-                          return Column(
-                            children: [
-                              DefaultContainer(
-                                child: Services(
-                                  services: services[index],
-                                  width: (width - 44) / 3,
-                                  maxCount: index == 2 ? 2 : null,
-                                  isGarbageCollection:
-                                      index == 3 ? true : false,
-                                  onTap: (dopCount) {
+                      /// Вид уборки
+                      DefaultContainer(
+                        child: Stack(
+                          children: [
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: () {
                                     setState(() {
-                                      currentPrice += dopCount;
+                                      indexServices = 0;
+                                      indexColorServices = 0;
                                     });
                                   },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 11, bottom: 15),
+                                    child: SizedBox(
+                                      width: (width - 44) / 3,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          cleaningName[0],
+                                          style: const TextStyle(
+                                            fontSize: 13,
+                                            color: AppConfig.pinkColor,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: () {
+                                    setState(() {
+                                      indexServices = 1;
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 11, bottom: 15),
+                                    child: SizedBox(
+                                      width: (width - 44) / 3,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          cleaningName[1],
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            color: indexColorServices == 0
+                                                ? AppConfig.pinkColor
+                                                : AppConfig.blueColor,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: () {
+                                    setState(() {
+                                      indexServices = 2;
+                                      indexColorServices = 2;
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 11, bottom: 15),
+                                    child: SizedBox(
+                                      width: (width - 44) / 3,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          cleaningName[2],
+                                          style: const TextStyle(
+                                            fontSize: 13,
+                                            color: AppConfig.blueColor,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            AnimatedAlign(
+                              duration: const Duration(milliseconds: 300),
+                              alignment: indexServices == 0
+                                  ? Alignment.centerLeft
+                                  : indexServices == 1
+                                      ? Alignment.center
+                                      : Alignment.topRight,
+                              child: Container(
+                                width: (width - 44) / 3,
+                                padding:
+                                    const EdgeInsets.only(top: 11, bottom: 14),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(34),
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      AppConfig.textFieldGradientStart,
+                                      AppConfig.textFieldGradientEnd,
+                                    ],
+                                  ),
+                                ),
+                                child: Text(
+                                  cleaningName[indexServices],
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: AppConfig.whiteColor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                              const SizedBox(height: 17),
-                            ],
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 17),
+
+                      ///Дополнительные услуги
+                      Column(
+                        children: List.generate(
+                          4,
+                          (index) {
+                            return Column(
+                              children: [
+                                DefaultContainer(
+                                  child: Services(
+                                    services: services[index],
+                                    width: (width - 44) / 3,
+                                    maxCount: index == 2 ? 2 : null,
+                                    isGarbageCollection:
+                                        index == 3 ? true : false,
+                                    onTap: (dopCount) {
+                                      setState(() {
+                                        currentPrice += dopCount;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(height: 17),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      GradientButton(
+                        text: 'Продолжить',
+                        startColor: AppConfig.stepsGradientStartThird,
+                        endColor: AppConfig.stepsGradientEndThird,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            CustomPageRoute(
+                              FillingData(
+                                summaryPrice: currentPrice,
+                                currency: services[0].currency,
+                              ),
+                            ),
                           );
                         },
                       ),
-                    ),
-                    GradientButton(
-                      text: 'Продолжить',
-                      startColor: AppConfig.stepsGradientStartThird,
-                      endColor: AppConfig.stepsGradientEndThird,
-                      onTap: () {
-                        Navigator.of(context).push(
-                          CustomPageRoute(
-                            FillingData(
-                              summaryPrice: currentPrice,
-                              currency: services[0].currency,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 60),
-                  ],
+                      const SizedBox(height: 60),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
