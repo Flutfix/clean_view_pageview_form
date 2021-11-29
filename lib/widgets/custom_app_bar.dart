@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -30,20 +31,37 @@ class CustomAppBar extends StatelessWidget {
                       ),
                     ),
                   )
-                : const SizedBox(
-                    width: 50,
-                  ),
+                : const SizedBox(width: 50),
             Padding(
-              padding: const EdgeInsets.only(top: 3),
-              child: Image.asset(
-                'lib/assets/images/logo.png',
-                width: 104,
-              ),
-            ),
+                padding: const EdgeInsets.only(top: 3),
+                child: _buildLogo(text: AppConfig.logo)),
             const SizedBox(width: 50),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildLogo({required String text}) {
+    var textList = text.split(' ');
+    return RichText(
+        text: TextSpan(children: <TextSpan>[
+      TextSpan(
+        text: '${textList[0]} ',
+        style: const TextStyle(
+          fontSize: 20,
+          color: AppConfig.blueColor,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      TextSpan(
+        text: textList[1],
+        style: const TextStyle(
+          fontSize: 20,
+          color: AppConfig.blackColor,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    ]));
   }
 }

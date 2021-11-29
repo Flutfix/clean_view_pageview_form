@@ -186,7 +186,7 @@ class _GeneralState extends State<General> {
                                   }),
                                 ),
                               ),
-                              const SizedBox(height: 27),
+                              const SizedBox(height: 16),
 
                               // Градиент-кнопка
                               GradientButton(
