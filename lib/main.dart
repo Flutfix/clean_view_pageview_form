@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/plans_view/general.dart';
+import 'package:flutter_application_1/config/config.dart';
+import 'package:flutter_application_1/pages/plans_page_view/general.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      color: AppConfig.whiteColor,
       debugShowCheckedModeBanner: false,
       home: General(),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/config.dart';
 
 class PlanPosition extends StatefulWidget {
   final double width;
@@ -34,7 +35,7 @@ class _PlanPositionState extends State<PlanPosition> {
               height: widget.height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color(0xffD8D8D8),
+                color: AppConfig.planPositionDefaultColor,
               ),
             ),
             Container(
@@ -42,7 +43,7 @@ class _PlanPositionState extends State<PlanPosition> {
               height: widget.height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color(0xffD8D8D8),
+                color: AppConfig.planPositionDefaultColor,
               ),
             ),
             Container(
@@ -50,7 +51,7 @@ class _PlanPositionState extends State<PlanPosition> {
               height: widget.height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color(0xffD8D8D8),
+                color: AppConfig.planPositionDefaultColor,
               ),
             )
           ],
@@ -68,7 +69,7 @@ class _PlanPositionState extends State<PlanPosition> {
           height: 7,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: const Color(0xffD8D8D8),
+              color: AppConfig.planPositionDefaultColor,
               gradient: LinearGradient(colors: [
                 widget.colorStart,
                 widget.colorEnd,

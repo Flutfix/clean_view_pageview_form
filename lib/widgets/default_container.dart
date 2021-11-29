@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/config.dart';
 
 class DefaultContainer extends StatefulWidget {
   final Widget? child;
@@ -15,11 +16,11 @@ class _DefaultContainerState extends State<DefaultContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppConfig.whiteColor,
         borderRadius: BorderRadius.circular(widget.borderRadius ?? 34),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.07),
+            color: AppConfig.blackColor.withOpacity(0.07),
             blurRadius: 15,
           ),
         ],

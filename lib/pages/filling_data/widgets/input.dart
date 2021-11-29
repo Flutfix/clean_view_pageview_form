@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/filling_data/widgets/container_with_star.dart';
+import 'package:flutter_application_1/config/config.dart';
+import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
 
 class Input extends StatefulWidget {
   final TextEditingController controller;
@@ -33,7 +34,7 @@ class _InputState extends State<Input> {
           child: TextField(
             controller: widget.controller,
             textInputAction: widget.textInputAction,
-            cursorColor: const Color(0xFF3DBDFF),
+            cursorColor:AppConfig.blueColor,
             keyboardType: widget.keyboardType,
             onChanged: (_) {
               setState(() {});
@@ -45,13 +46,13 @@ class _InputState extends State<Input> {
               hintText: widget.hintText,
               hintStyle: TextStyle(
                 fontSize: 13,
-                color: Colors.black.withOpacity(0.15),
+                color: AppConfig.blackColor.withOpacity(0.15),
                 fontWeight: FontWeight.w500,
               ),
             ),
             style: const TextStyle(
               fontSize: 13,
-              color: Color(0xFF3DBDFF),
+              color: AppConfig.blueColor,
               fontWeight: FontWeight.w700,
             ),
           ),
