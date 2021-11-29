@@ -3,6 +3,7 @@ import 'package:flutter_application_1/filling_data/widgets/container_with_star.d
 
 class Input extends StatefulWidget {
   final TextEditingController controller;
+  final TextInputAction? textInputAction;
   final String? hintText;
   final double? width;
   final TextInputType? keyboardType;
@@ -10,6 +11,7 @@ class Input extends StatefulWidget {
   const Input({
     Key? key,
     required this.controller,
+    this.textInputAction,
     this.width,
     this.hintText,
     this.keyboardType,
@@ -30,6 +32,7 @@ class _InputState extends State<Input> {
           height: 42,
           child: TextField(
             controller: widget.controller,
+            textInputAction: widget.textInputAction,
             cursorColor: const Color(0xFF3DBDFF),
             keyboardType: widget.keyboardType,
             onChanged: (_) {
