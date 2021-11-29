@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/models/services.dart';
 
 class Services extends StatefulWidget {
@@ -35,7 +36,7 @@ class _ServicesState extends State<Services> {
                 '+ ',
                 style: TextStyle(
                   fontSize: 13,
-                  color: Color(0xFF3DBDFF),
+                  color: AppConfig.blueColor,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -50,7 +51,7 @@ class _ServicesState extends State<Services> {
                 '${widget.services.price} ${widget.services.currency}',
                 style: const TextStyle(
                   fontSize: 13,
-                  color: Color(0xFF3DBDFF),
+                  color: AppConfig.blueColor,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -72,8 +73,8 @@ class _ServicesState extends State<Services> {
               borderRadius: BorderRadius.circular(34),
               gradient: const LinearGradient(
                 colors: [
-                  Color(0xFFF59CEC),
-                  Color(0xFF3DBDFF),
+                  AppConfig.textFieldGradientStart,
+                  AppConfig.textFieldGradientEnd,
                 ],
               ),
             ),
@@ -84,7 +85,7 @@ class _ServicesState extends State<Services> {
                       'Добавить',
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.white,
+                        color: AppConfig.whiteColor,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -114,7 +115,7 @@ class _ServicesState extends State<Services> {
                                 'Исполнится',
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: Colors.white,
+                                  color: AppConfig.whiteColor,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -148,7 +149,7 @@ class _ServicesState extends State<Services> {
                                     '-',
                                     style: TextStyle(
                                       fontSize: 13,
-                                      color: Colors.white,
+                                      color: AppConfig.whiteColor,
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
@@ -161,7 +162,7 @@ class _ServicesState extends State<Services> {
                             '${widget.services.count}',
                             style: const TextStyle(
                               fontSize: 13,
-                              color: Colors.white,
+                              color: AppConfig.whiteColor,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -191,7 +192,7 @@ class _ServicesState extends State<Services> {
                                     '+',
                                     style: TextStyle(
                                       fontSize: 13,
-                                      color: Colors.white,
+                                      color: AppConfig.whiteColor,
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),

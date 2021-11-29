@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ContainerWithStar extends StatefulWidget {
@@ -26,18 +27,18 @@ class _ContainerWithStarState extends State<ContainerWithStar> {
         gradient: LinearGradient(
           colors: widget.isActive
               ? [
-                  const Color(0xFFF59CEC),
-                  const Color(0xFF3DBDFF),
+                  AppConfig.textFieldGradientStart,
+                  AppConfig.textFieldGradientEnd,
                 ]
               : [
-                  const Color(0xFFD9D9D9),
-                  const Color(0xFFD9D9D9),
+                  AppConfig.textFieldEmptyColor,
+                  AppConfig.textFieldEmptyColor,
                 ],
         ),
       ),
       child: SvgPicture.asset(
         'lib/assets/images/star.svg',
-        color: Colors.white,
+        color: AppConfig.whiteColor,
         width: 15,
         height: 15,
       ),

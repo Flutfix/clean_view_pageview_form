@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/filling_data/widgets/container_with_star.dart';
-import 'package:flutter_application_1/plans_view/widgets/gradient_button.dart';
+import 'package:flutter_application_1/config/config.dart';
+import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
+import 'package:flutter_application_1/pages/filling_data/widgets/input.dart';
+import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
-import 'package:flutter_application_1/filling_data/widgets/input.dart';
 
 class FillingData extends StatefulWidget {
   final int summaryPrice;
@@ -43,7 +44,7 @@ class _FillingDataState extends State<FillingData> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppConfig.whiteColor,
         body: Column(
           children: [
             const CustomAppBar(isBackArrow: true),
@@ -105,7 +106,7 @@ class _FillingDataState extends State<FillingData> {
                                 textInputAction: TextInputAction.next,
                                 textAlign: TextAlign.center,
                                 controller: controllerHome,
-                                cursorColor: const Color(0xFF3DBDFF),
+                                cursorColor: AppConfig.blueColor,
                                 keyboardType: TextInputType.number,
                                 onChanged: (_) {
                                   setState(() {});
@@ -117,13 +118,14 @@ class _FillingDataState extends State<FillingData> {
                                   hintText: 'Дом',
                                   hintStyle: TextStyle(
                                     fontSize: 13,
-                                    color: Colors.black.withOpacity(0.15),
+                                    color:
+                                        AppConfig.blackColor.withOpacity(0.15),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 style: const TextStyle(
                                   fontSize: 13,
-                                  color: Color(0xFF3DBDFF),
+                                  color: AppConfig.blueColor,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -145,7 +147,7 @@ class _FillingDataState extends State<FillingData> {
                                 textInputAction: TextInputAction.next,
                                 textAlign: TextAlign.center,
                                 controller: controllerFlat,
-                                cursorColor: const Color(0xFF3DBDFF),
+                                cursorColor: AppConfig.blueColor,
                                 keyboardType: TextInputType.number,
                                 onChanged: (_) {
                                   setState(() {});
@@ -157,13 +159,14 @@ class _FillingDataState extends State<FillingData> {
                                   hintText: 'Квартира',
                                   hintStyle: TextStyle(
                                     fontSize: 13,
-                                    color: Colors.black.withOpacity(0.15),
+                                    color:
+                                        AppConfig.blackColor.withOpacity(0.15),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 style: const TextStyle(
                                   fontSize: 13,
-                                  color: Color(0xFF3DBDFF),
+                                  color: AppConfig.blueColor,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -197,7 +200,8 @@ class _FillingDataState extends State<FillingData> {
                                                         'Волшебное место, где можно написать полезный ',
                                                     style: TextStyle(
                                                       fontSize: 13,
-                                                      color: Colors.black
+                                                      color: AppConfig
+                                                          .blackColor
                                                           .withOpacity(0.15),
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -207,7 +211,8 @@ class _FillingDataState extends State<FillingData> {
                                                     text: 'комментарий',
                                                     style: TextStyle(
                                                       fontSize: 13,
-                                                      color: Color(0xFF3DBDFF),
+                                                      color:
+                                                          AppConfig.blueColor,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                     ),
@@ -217,7 +222,8 @@ class _FillingDataState extends State<FillingData> {
                                                         ' для мастера, важные детали, удобное время приема',
                                                     style: TextStyle(
                                                       fontSize: 13,
-                                                      color: Colors.black
+                                                      color: AppConfig
+                                                          .blackColor
                                                           .withOpacity(0.15),
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -231,7 +237,7 @@ class _FillingDataState extends State<FillingData> {
                                     TextField(
                                       minLines: 3,
                                       maxLines: 3,
-                                      cursorColor: const Color(0xFF3DBDFF),
+                                      cursorColor: AppConfig.blueColor,
                                       controller: controllerComment,
                                       onChanged: (_) {
                                         setState(() {});
@@ -244,7 +250,7 @@ class _FillingDataState extends State<FillingData> {
                                       ),
                                       style: const TextStyle(
                                         fontSize: 13,
-                                        color: Color(0xFF3DBDFF),
+                                        color: AppConfig.blueColor,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -274,16 +280,16 @@ class _FillingDataState extends State<FillingData> {
 
                       GradientButton(
                         onTap: () async {},
-                        startColor: const Color(0xff4FF0FF),
-                        endColor: const Color(0xffFF60DE),
+                        startColor: AppConfig.stepsGradientStartThird,
+                        endColor: AppConfig.stepsGradientEndThird,
                         richText: RichText(
                           text: TextSpan(
                             children: <TextSpan>[
-                              const TextSpan(
+                              TextSpan(
                                 text: 'Мастер за ',
                                 style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.white70,
+                                  color: AppConfig.whiteColor.withOpacity(0.4),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -292,7 +298,7 @@ class _FillingDataState extends State<FillingData> {
                                     '${widget.summaryPrice} ${widget.currency}',
                                 style: const TextStyle(
                                   fontSize: 18,
-                                  color: Colors.white,
+                                  color: AppConfig.whiteColor,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),

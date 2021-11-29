@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/models/info_card_model.dart';
 
 class PlanCard extends StatelessWidget {
@@ -29,7 +30,7 @@ class PlanCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white,
+                  color: AppConfig.whiteColor,
                 ),
               ),
               Text(
@@ -37,7 +38,7 @@ class PlanCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  color: AppConfig.whiteColor,
                 ),
               ),
               const SizedBox(height: 29),
@@ -47,7 +48,7 @@ class PlanCard extends StatelessWidget {
                   fontSize: 24,
                   decoration: TextDecoration.lineThrough,
                   fontWeight: FontWeight.w500,
-                  color: Colors.white.withOpacity(0.4),
+                  color: AppConfig.whiteColor.withOpacity(0.4),
                 ),
               ),
             ],

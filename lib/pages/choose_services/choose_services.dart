@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/choose_services/widgets/services.dart';
-import 'package:flutter_application_1/filling_data/filling_data.dart';
-import 'package:flutter_application_1/plans_view/widgets/gradient_button.dart';
+import 'package:flutter_application_1/config/config.dart';
+import 'package:flutter_application_1/pages/choose_services/widgets/services.dart';
+import 'package:flutter_application_1/pages/filling_data/filling_data.dart';
+import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
@@ -44,7 +45,7 @@ class _ChooseServicesState extends State<ChooseServices> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppConfig.whiteColor,
       body: Column(
         children: [
           const CustomAppBar(isBackArrow: true),
@@ -92,7 +93,7 @@ class _ChooseServicesState extends State<ChooseServices> {
                                         cleaningName[0],
                                         style: const TextStyle(
                                           fontSize: 13,
-                                          color: Color(0xFFF59CEC),
+                                          color: AppConfig.pinkColor,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
@@ -119,8 +120,8 @@ class _ChooseServicesState extends State<ChooseServices> {
                                         style: TextStyle(
                                           fontSize: 13,
                                           color: indexColorServices == 0
-                                              ? const Color(0xFFF59CEC)
-                                              : const Color(0xFF3DBDFF),
+                                              ? AppConfig.pinkColor
+                                              : AppConfig.blueColor,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
@@ -147,7 +148,7 @@ class _ChooseServicesState extends State<ChooseServices> {
                                         cleaningName[2],
                                         style: const TextStyle(
                                           fontSize: 13,
-                                          color: Color(0xFF3DBDFF),
+                                          color: AppConfig.blueColor,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
@@ -173,8 +174,8 @@ class _ChooseServicesState extends State<ChooseServices> {
                                 borderRadius: BorderRadius.circular(34),
                                 gradient: const LinearGradient(
                                   colors: [
-                                    Color(0xFFF59CEC),
-                                    Color(0xFF3DBDFF),
+                                    AppConfig.textFieldGradientStart,
+                                    AppConfig.textFieldGradientEnd,
                                   ],
                                 ),
                               ),
@@ -182,7 +183,7 @@ class _ChooseServicesState extends State<ChooseServices> {
                                 cleaningName[indexServices],
                                 style: const TextStyle(
                                   fontSize: 14,
-                                  color: Colors.white,
+                                  color: AppConfig.whiteColor,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -222,6 +223,8 @@ class _ChooseServicesState extends State<ChooseServices> {
                     ),
                     GradientButton(
                       text: 'Продолжить',
+                      startColor: AppConfig.stepsGradientStartThird,
+                      endColor: AppConfig.stepsGradientEndThird,
                       onTap: () {
                         Navigator.of(context).push(
                           CustomPageRoute(
@@ -232,8 +235,6 @@ class _ChooseServicesState extends State<ChooseServices> {
                           ),
                         );
                       },
-                      startColor: const Color(0xff4FF0FF),
-                      endColor: const Color(0xffFF60DE),
                     ),
                     const SizedBox(height: 60),
                   ],

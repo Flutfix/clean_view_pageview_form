@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/config.dart';
 
 class GradientButton extends StatefulWidget {
   final String? text;
@@ -46,7 +47,7 @@ class _GradientButtonState extends State<GradientButton> {
             child: widget.richText ?? Text(
               widget.text ?? 'Продолжить',
               style: const TextStyle(
-                  color: Colors.white,
+                  color: AppConfig.whiteColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w600),
             ),

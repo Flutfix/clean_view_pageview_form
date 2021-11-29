@@ -1,3 +1,5 @@
+import 'package:flutter_application_1/config/config.dart';
+
 class InfoCardModel {
   final int square;
   final int price;
@@ -9,6 +11,6 @@ class InfoCardModel {
     required this.price,
     required this.previousPrice,
     required this.image,
-    this.currency = '₽',
+    this.currency = AppConfig.currencySymbol,
   });
 }

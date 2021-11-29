@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/config.dart';
 
 class CustomPageRoute<T> extends PageRoute<T> {
   CustomPageRoute(this.child);
   @override
-  Color get barrierColor => Colors.white;
+  Color get barrierColor => AppConfig.whiteColor;
 
   @override
   String? get barrierLabel => null;

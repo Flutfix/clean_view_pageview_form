@@ -1,3 +1,5 @@
+import 'package:flutter_application_1/config/config.dart';
+
 class ServicesModel {
   final String name;
   final int price;
@@ -7,7 +9,7 @@ class ServicesModel {
   ServicesModel({
     required this.name,
     required this.price,
-    this.currency = 'руб',
+    this.currency = AppConfig.currency,
     this.count = 0,
   });
 }
