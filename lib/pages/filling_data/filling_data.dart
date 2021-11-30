@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/business_logic/email_sender.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/input.dart';
@@ -27,7 +28,6 @@ class _FillingDataState extends State<FillingData> {
   late final TextEditingController controllerFlat;
   late final TextEditingController controllerComment;
   late final TextEditingController controllerNumber;
-  late ScrollController _scrollController;
 
   @override
   void initState() {
@@ -38,7 +38,6 @@ class _FillingDataState extends State<FillingData> {
     controllerFlat = TextEditingController();
     controllerComment = TextEditingController();
     controllerNumber = TextEditingController();
-    _scrollController = ScrollController();
   }
 
   @override
@@ -283,39 +282,45 @@ class _FillingDataState extends State<FillingData> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 48),
-
-                        GradientButton(
-                          onTap: () async {},
-                          startColor: AppConfig.stepsGradientStartThird,
-                          endColor: AppConfig.stepsGradientEndThird,
-                          richText: RichText(
-                            text: TextSpan(
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: 'Мастер за ',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color:
-                                        AppConfig.whiteColor.withOpacity(0.4),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:
-                                      '${widget.summaryPrice} ${widget.currency}',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: AppConfig.whiteColor,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                         const SizedBox(height: 60),
                       ],
+                    ),
+                  ),
+                ),
+              ),
+
+              /// Нижний блок [Градиент кнопка]
+              Container(
+                width: width,
+                color: AppConfig.whiteColor,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 22.0, vertical: 12),
+                  child: GradientButton(
+                    onTap: () async {},
+                    startColor: AppConfig.stepsGradientStartThird,
+                    endColor: AppConfig.stepsGradientEndThird,
+                    richText: RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Мастер за ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: AppConfig.whiteColor.withOpacity(0.4),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '${widget.summaryPrice} ${widget.currency}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: AppConfig.whiteColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

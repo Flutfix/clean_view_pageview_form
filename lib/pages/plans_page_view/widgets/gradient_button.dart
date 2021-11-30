@@ -32,6 +32,7 @@ class _GradientButtonState extends State<GradientButton> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         width: width,
+        height: 45,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
             gradient: LinearGradient(
@@ -44,13 +45,14 @@ class _GradientButtonState extends State<GradientButton> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: widget.richText ?? Text(
-              widget.text ?? 'Продолжить',
-              style: const TextStyle(
-                  color: AppConfig.whiteColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600),
-            ),
+            child: widget.richText ??
+                Text(
+                  widget.text ?? 'Продолжить',
+                  style: const TextStyle(
+                      color: AppConfig.whiteColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600),
+                ),
           ),
         ),
       ),

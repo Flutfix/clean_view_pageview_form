@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/models/info_card_model.dart';
@@ -9,7 +11,6 @@ import 'package:flutter_application_1/pages/plans_page_view/widgets/plan_positio
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:swipe/swipe.dart';
 
 class General extends StatefulWidget {
   const General({Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class _GeneralState extends State<General> {
         icon: 'lib/assets/images/sun.png',
       ),
       PointRowModel(
-        title: 'Анигиляция пыл',
+        title: 'Анигиляция пыли',
         description: 'Kärcher Home & Garden',
         icon: 'lib/assets/images/bird.png',
       ),
@@ -85,11 +86,10 @@ class _GeneralState extends State<General> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: AppConfig.whiteColor,
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const CustomAppBar(),
@@ -97,6 +97,7 @@ class _GeneralState extends State<General> {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     /// Карточки с площадью и ценой
                     SizedBox(
@@ -187,26 +188,32 @@ class _GeneralState extends State<General> {
                                 ),
                               ),
                               const SizedBox(height: 16),
-
-                              // Градиент-кнопка
-                              GradientButton(
-                                text: 'Продолжить',
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(CustomPageRoute(ChooseServices(
-                                    currentPrice: cardsList[currentIndex].price,
-                                  )));
-                                },
-                                startColor: buttonGradientStart,
-                                endColor: buttonGradientEnd,
-                              ),
-                              const SizedBox(height: 40),
                             ],
                           ),
                         ),
                       ),
                     )
                   ],
+                ),
+              ),
+            ),
+
+            /// Нижний блок [Градиент кнопка]
+            Container(
+              width: width,
+              color: AppConfig.whiteColor,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22.0, vertical: 12),
+                child: GradientButton(
+                  text: 'Продолжить',
+                  onTap: () {
+                    Navigator.of(context).push(CustomPageRoute(ChooseServices(
+                      currentPrice: cardsList[currentIndex].price,
+                    )));
+                  },
+                  startColor: buttonGradientStart,
+                  endColor: buttonGradientEnd,
                 ),
               ),
             ),
