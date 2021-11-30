@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/business_logic/email_sender.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/input.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
+import 'package:flutter_application_1/pages/successfull_order/successfull_order_page.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
+import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
 import 'package:swipe/swipe.dart';
 
@@ -297,7 +298,10 @@ class _FillingDataState extends State<FillingData> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 22.0, vertical: 12),
                   child: GradientButton(
-                    onTap: () async {},
+                    onTap: () async {
+                      Navigator.of(context)
+                          .push(CustomPageRoute(const SuccessFullOrderPage()));
+                    },
                     startColor: AppConfig.stepsGradientStartThird,
                     endColor: AppConfig.stepsGradientEndThird,
                     richText: RichText(
