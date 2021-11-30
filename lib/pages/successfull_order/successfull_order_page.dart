@@ -4,6 +4,7 @@ import 'package:flutter_application_1/pages/filling_data/widgets/container_with_
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
+import 'package:swipe/swipe.dart';
 
 class SuccessFullOrderPage extends StatefulWidget {
   const SuccessFullOrderPage({Key? key}) : super(key: key);
@@ -16,73 +17,78 @@ class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: AppConfig.whiteColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const CustomAppBar(isBackArrow: true),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  /// Анимация
-                  Padding(
-                    padding: const EdgeInsets.only(left: 67, right: 66),
-                    child: Image.asset('lib/assets/gif/order_was_created.gif'),
-                  ),
-                  const SizedBox(height: 37),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                    child: _text(),
-                  ),
-                  // Image.asset('lib/assets/images/unicorn.png')
-                ],
+    return Swipe(
+      onSwipeRight: () => Navigator.pop(context),
+      child: Scaffold(
+        backgroundColor: AppConfig.whiteColor,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const CustomAppBar(isBackArrow: true),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    /// Анимация
+                    Padding(
+                      padding: const EdgeInsets.only(left: 67, right: 66),
+                      child:
+                          Image.asset('lib/assets/gif/order_was_created.gif'),
+                    ),
+                    const SizedBox(height: 37),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                      child: _text(),
+                    ),
+                    // Image.asset('lib/assets/images/unicorn.png')
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22.0),
-            child: Column(
-              children: [
-                /// Подарок
-                Stack(
-                  alignment: Alignment.centerRight,
-                  children: [
-                    DefaultContainer(
-                      width: width,
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 18, top: 13, bottom: 13),
-                        child: Text(
-                          'Обработка антисептиком в подарок',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: AppConfig.blueColor,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Column(
+                children: [
+                  /// Подарок
+                  Stack(
+                    alignment: Alignment.centerRight,
+                    children: [
+                      DefaultContainer(
+                        width: width,
+                        child: const Padding(
+                          padding:
+                              EdgeInsets.only(left: 18, top: 13, bottom: 13),
+                          child: Text(
+                            'Обработка антисептиком в подарок',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: AppConfig.blueColor,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const ContainerWithStar(
-                      isActive: true,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 17),
+                      const ContainerWithStar(
+                        isActive: true,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 17),
 
-                ///Градиент кнопка
-                GradientButton(
-                  text: 'Отлично',
-                  startColor: AppConfig.stepsGradientStartThird,
-                  endColor: AppConfig.stepsGradientEndThird,
-                  onTap: () {},
-                ),
-                const SizedBox(height: 12),
-              ],
-            ),
-          )
-        ],
+                  ///Градиент кнопка
+                  GradientButton(
+                    text: 'Отлично',
+                    startColor: AppConfig.stepsGradientStartThird,
+                    endColor: AppConfig.stepsGradientEndThird,
+                    onTap: () {},
+                  ),
+                  const SizedBox(height: 12),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
