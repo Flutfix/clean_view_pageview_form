@@ -100,54 +100,66 @@ class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
   }
 
   Widget _text() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: const TextSpan(
-        children: [
-          TextSpan(
-            text: 'Восхитительно! ',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: AppConfig.blueColor,
-            ),
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        RichText(
+          textAlign: TextAlign.center,
+          text: const TextSpan(
+            children: [
+              TextSpan(
+                text: 'Восхитительно! ',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: AppConfig.blueColor,
+                ),
+              ),
+              TextSpan(
+                text:
+                    'Мастер уже летит на помощь, в скором времени перезвонит, а команда ',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: AppConfig.blackColor,
+                ),
+              ),
+              TextSpan(
+                text: 'Super ',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: AppConfig.blueColor,
+                ),
+              ),
+              TextSpan(
+                text: 'Clean ',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: AppConfig.blackColor,
+                ),
+              ),
+              TextSpan(
+                text:
+                    'благодарит за возможность сделать чистым каждый миллиметр ещё уютнее ',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: AppConfig.blackColor,
+                ),
+              ),
+            ],
           ),
-          TextSpan(
-            text:
-                'Мастер уже летит на помощь, в скором времени перезвонит, а команда ',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: AppConfig.blackColor,
-            ),
+        ),
+        Positioned(
+          right: 60,
+          child: Image.asset(
+            'lib/assets/images/unicorn.png',
+            width: 18,
           ),
-          TextSpan(
-            text: 'Super ',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: AppConfig.blueColor,
-            ),
-          ),
-          TextSpan(
-            text: 'Clean ',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: AppConfig.blackColor,
-            ),
-          ),
-          TextSpan(
-            text:
-                'благодарит за возможность сделать чистым каждый миллиметр ещё уютнее ',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: AppConfig.blackColor,
-            ),
-          ),
-        ],
-      ),
+        )
+      ],
     );
   }
 }
