@@ -20,7 +20,8 @@ class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Swipe(
-      onSwipeRight: () => Navigator.pop(context),
+      onSwipeRight: () => Navigator.of(context)
+          .pushAndRemoveUntil(CustomPageRoute(const General()), (r) => false),
       child: Scaffold(
         backgroundColor: AppConfig.whiteColor,
         body: Column(
@@ -85,8 +86,7 @@ class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
                     endColor: AppConfig.stepsGradientEndThird,
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                          CustomPageRoute(const General()),
-                          (r) => false);
+                          CustomPageRoute(const General()), (r) => false);
                     },
                   ),
                   const SizedBox(height: 12),
