@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(19, 16, 21, 16),
+                      padding: const EdgeInsets.fromLTRB(19, 0, 21, 0),
                       child: SvgPicture.asset(
                         'lib/assets/images/back_arrow.svg',
                         width: 10,
@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget {
                 : const SizedBox(width: 50),
             Padding(
                 padding: const EdgeInsets.only(top: 3),
-                child: _buildLogo(text: AppConfig.logo)),
+                child: _buildLogo(text: AppConfig.companyName)),
             const SizedBox(width: 50),
           ],
         ),
