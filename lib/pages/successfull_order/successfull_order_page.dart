@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
+import 'package:flutter_application_1/pages/plans_page_view/general.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
+import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
 import 'package:swipe/swipe.dart';
 
@@ -81,7 +83,11 @@ class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
                     text: 'Отлично',
                     startColor: AppConfig.stepsGradientStartThird,
                     endColor: AppConfig.stepsGradientEndThird,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          CustomPageRoute(const General()),
+                          (r) => false);
+                    },
                   ),
                   const SizedBox(height: 12),
                 ],
