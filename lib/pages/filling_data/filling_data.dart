@@ -51,6 +51,7 @@ class _FillingDataState extends State<FillingData> {
         child: Scaffold(
           backgroundColor: AppConfig.whiteColor,
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const CustomAppBar(isBackArrow: true),
               Expanded(
@@ -112,7 +113,8 @@ class _FillingDataState extends State<FillingData> {
                                   textAlign: TextAlign.center,
                                   controller: controllerHome,
                                   cursorColor: AppConfig.blueColor,
-                                  keyboardType: TextInputType.number,
+                                  scrollPadding:
+                                      const EdgeInsets.only(bottom: 100),
                                   onChanged: (_) {
                                     setState(() {});
                                   },
@@ -243,7 +245,7 @@ class _FillingDataState extends State<FillingData> {
                                         minLines: 3,
                                         maxLines: 3,
                                         scrollPadding:
-                                            const EdgeInsets.only(bottom: 218),
+                                            const EdgeInsets.only(bottom: 180),
                                         cursorColor: AppConfig.blueColor,
                                         controller: controllerComment,
                                         onChanged: (_) {
@@ -283,7 +285,7 @@ class _FillingDataState extends State<FillingData> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 120),
                       ],
                     ),
                   ),
@@ -291,39 +293,42 @@ class _FillingDataState extends State<FillingData> {
               ),
 
               /// Нижний блок [Градиент кнопка]
-              Container(
-                width: width,
-                color: AppConfig.whiteColor,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 22.0, vertical: 12),
-                  child: GradientButton(
-                    onTap: () async {
-                      Navigator.of(context)
-                          .push(CustomPageRoute(const SuccessFullOrderPage()));
-                    },
-                    startColor: AppConfig.stepsGradientStartThird,
-                    endColor: AppConfig.stepsGradientEndThird,
-                    richText: RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Мастер за ',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: AppConfig.whiteColor.withOpacity(0.4),
-                              fontWeight: FontWeight.w500,
+              Visibility(
+                visible: MediaQuery.of(context).viewInsets.bottom == 0,
+                child: Container(
+                  width: width,
+                  color: AppConfig.whiteColor,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 22.0, vertical: 12),
+                    child: GradientButton(
+                      onTap: () async {
+                        Navigator.of(context).push(
+                            CustomPageRoute(const SuccessFullOrderPage()));
+                      },
+                      startColor: AppConfig.stepsGradientStartThird,
+                      endColor: AppConfig.stepsGradientEndThird,
+                      richText: RichText(
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'Мастер за ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: AppConfig.whiteColor.withOpacity(0.4),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
-                          TextSpan(
-                            text: '${widget.summaryPrice} ${widget.currency}',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: AppConfig.whiteColor,
-                              fontWeight: FontWeight.w600,
+                            TextSpan(
+                              text: '${widget.summaryPrice} ${widget.currency}',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: AppConfig.whiteColor,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
