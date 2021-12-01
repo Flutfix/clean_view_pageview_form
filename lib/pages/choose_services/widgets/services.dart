@@ -1,13 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
+import 'package:flutter_application_1/controllers/general_controller.dart';
 import 'package:flutter_application_1/models/services.dart';
+import 'package:provider/provider.dart';
 
 class Services extends StatefulWidget {
   final ServicesModel services;
   final double? width;
   final int? maxCount;
   final bool isGarbageCollection;
-  final Function(int currentPrice) onTap;
+  final Function(int currentPrice, int count) onTap;
 
   const Services({
     Key? key,
@@ -64,7 +68,7 @@ class _ServicesState extends State<Services> {
               setState(() {});
               widget.services.count += 1;
             }
-            widget.onTap(widget.services.price);
+            widget.onTap(widget.services.price, widget.services.count);
           },
           child: Container(
             width: widget.width,
@@ -98,12 +102,15 @@ class _ServicesState extends State<Services> {
                             setState(() {
                               widget.services.count -= 1;
                             });
-                            widget.onTap(-widget.services.price);
+                            widget.onTap(
+                                -widget.services.price, widget.services.count);
                           } else {
                             setState(() {
                               widget.services.count += 1;
                             });
-                            widget.onTap(widget.services.price);
+
+                            widget.onTap(
+                                widget.services.price, widget.services.count);
                           }
                         },
                         child: Padding(
@@ -137,7 +144,8 @@ class _ServicesState extends State<Services> {
                                 setState(() {
                                   widget.services.count -= 1;
                                 });
-                                widget.onTap(-widget.services.price);
+                                widget.onTap(-widget.services.price,
+                                    widget.services.count);
                               }
                             },
                             child: Padding(
@@ -174,13 +182,15 @@ class _ServicesState extends State<Services> {
                                   setState(() {
                                     widget.services.count += 1;
                                   });
-                                  widget.onTap(widget.services.price);
+                                  widget.onTap(widget.services.price,
+                                      widget.services.count);
                                 }
                               } else {
                                 setState(() {
                                   widget.services.count += 1;
                                 });
-                                widget.onTap(widget.services.price);
+                                widget.onTap(widget.services.price,
+                                    widget.services.count);
                               }
                             },
                             child: Padding(
