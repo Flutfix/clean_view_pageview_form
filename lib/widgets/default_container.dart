@@ -4,8 +4,13 @@ import 'package:flutter_application_1/config/config.dart';
 class DefaultContainer extends StatefulWidget {
   final Widget? child;
   final double? borderRadius;
-  const DefaultContainer({Key? key, this.child, this.borderRadius})
-      : super(key: key);
+  final double? width;
+  const DefaultContainer({
+    Key? key,
+    this.child,
+    this.borderRadius,
+    this.width,
+  }) : super(key: key);
 
   @override
   _DefaultContainerState createState() => _DefaultContainerState();
@@ -15,6 +20,7 @@ class _DefaultContainerState extends State<DefaultContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: widget.width,
       decoration: BoxDecoration(
         color: AppConfig.whiteColor,
         borderRadius: BorderRadius.circular(widget.borderRadius ?? 34),

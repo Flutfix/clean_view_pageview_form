@@ -50,6 +50,7 @@ class _ChooseServicesState extends State<ChooseServices> {
       child: Scaffold(
         backgroundColor: AppConfig.whiteColor,
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const CustomAppBar(isBackArrow: true),
             Expanded(
@@ -224,25 +225,34 @@ class _ChooseServicesState extends State<ChooseServices> {
                           },
                         ),
                       ),
-                      const SizedBox(height: 23),
-                      GradientButton(
-                        text: 'Продолжить',
-                        startColor: AppConfig.stepsGradientStartThird,
-                        endColor: AppConfig.stepsGradientEndThird,
-                        onTap: () {
-                          Navigator.of(context).push(
-                            CustomPageRoute(
-                              FillingData(
-                                summaryPrice: currentPrice,
-                                currency: services[0].currency,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
                       const SizedBox(height: 60),
                     ],
                   ),
+                ),
+              ),
+            ),
+
+            /// Нижний блок [Градиент кнопка]
+            Container(
+              width: width,
+              color: AppConfig.whiteColor,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22.0, vertical: 12),
+                child: GradientButton(
+                  text: 'Продолжить',
+                  startColor: AppConfig.stepsGradientStartThird,
+                  endColor: AppConfig.stepsGradientEndThird,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      CustomPageRoute(
+                        FillingData(
+                          summaryPrice: currentPrice,
+                          currency: services[0].currency,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

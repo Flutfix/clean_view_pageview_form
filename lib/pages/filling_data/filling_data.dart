@@ -3,7 +3,9 @@ import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/input.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
+import 'package:flutter_application_1/pages/successfull_order/successfull_order_page.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
+import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
 import 'package:swipe/swipe.dart';
 
@@ -27,7 +29,6 @@ class _FillingDataState extends State<FillingData> {
   late final TextEditingController controllerFlat;
   late final TextEditingController controllerComment;
   late final TextEditingController controllerNumber;
-  late ScrollController _scrollController;
 
   @override
   void initState() {
@@ -38,7 +39,6 @@ class _FillingDataState extends State<FillingData> {
     controllerFlat = TextEditingController();
     controllerComment = TextEditingController();
     controllerNumber = TextEditingController();
-    _scrollController = ScrollController();
   }
 
   @override
@@ -51,6 +51,7 @@ class _FillingDataState extends State<FillingData> {
         child: Scaffold(
           backgroundColor: AppConfig.whiteColor,
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const CustomAppBar(isBackArrow: true),
               Expanded(
@@ -112,7 +113,8 @@ class _FillingDataState extends State<FillingData> {
                                   textAlign: TextAlign.center,
                                   controller: controllerHome,
                                   cursorColor: AppConfig.blueColor,
-                                  keyboardType: TextInputType.number,
+                                  scrollPadding:
+                                      const EdgeInsets.only(bottom: 100),
                                   onChanged: (_) {
                                     setState(() {});
                                   },
@@ -243,7 +245,7 @@ class _FillingDataState extends State<FillingData> {
                                         minLines: 3,
                                         maxLines: 3,
                                         scrollPadding:
-                                            const EdgeInsets.only(bottom: 218),
+                                            const EdgeInsets.only(bottom: 180),
                                         cursorColor: AppConfig.blueColor,
                                         controller: controllerComment,
                                         onChanged: (_) {
@@ -283,39 +285,51 @@ class _FillingDataState extends State<FillingData> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 48),
-
-                        GradientButton(
-                          onTap: () async {},
-                          startColor: AppConfig.stepsGradientStartThird,
-                          endColor: AppConfig.stepsGradientEndThird,
-                          richText: RichText(
-                            text: TextSpan(
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: 'Мастер за ',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color:
-                                        AppConfig.whiteColor.withOpacity(0.4),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:
-                                      '${widget.summaryPrice} ${widget.currency}',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: AppConfig.whiteColor,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 60),
+                        const SizedBox(height: 120),
                       ],
+                    ),
+                  ),
+                ),
+              ),
+
+              /// Нижний блок [Градиент кнопка]
+              Visibility(
+                visible: MediaQuery.of(context).viewInsets.bottom == 0,
+                child: Container(
+                  width: width,
+                  color: AppConfig.whiteColor,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 22.0, vertical: 12),
+                    child: GradientButton(
+                      onTap: () async {
+                        Navigator.of(context).push(
+                            CustomPageRoute(const SuccessFullOrderPage()));
+                      },
+                      startColor: AppConfig.stepsGradientStartThird,
+                      endColor: AppConfig.stepsGradientEndThird,
+                      richText: RichText(
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'Мастер за ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: AppConfig.whiteColor.withOpacity(0.4),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${widget.summaryPrice} ${widget.currency}',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: AppConfig.whiteColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),

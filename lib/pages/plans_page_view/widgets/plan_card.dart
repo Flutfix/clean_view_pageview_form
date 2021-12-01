@@ -14,7 +14,6 @@ class PlanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: onTap,
