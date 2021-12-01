@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppConfig {
-  // Брэнд
+  // Название компании
   static const String companyName = 'Super Clean';
 
   /// Валюта
   static const String currency = 'руб';
   static const String currencySymbol = '₽';
+
+  static const String fontFamilyInter = "Inter";
 
   /*------------------Цвета-----------------------------*/
   ///Базовые
