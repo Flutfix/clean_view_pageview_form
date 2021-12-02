@@ -10,6 +10,7 @@ import 'package:flutter_application_1/pages/successfull_order/successfull_order_
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
 
@@ -289,6 +290,11 @@ class _FillingDataState extends State<FillingData> {
                               hintText: 'Номер мобильного телефона',
                               controller: controllerNumber,
                               keyboardType: TextInputType.number,
+                              textFormatters: [
+                                MaskTextInputFormatter(
+                                    mask: '+7 ### ### ## ##',
+                                    filter: {"#": RegExp(r'[0-9]')})
+                              ],
                             ),
                           ),
                         ),
@@ -309,13 +315,12 @@ class _FillingDataState extends State<FillingData> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 22.0, vertical: 12),
                     child: GradientButton(
-                      onTap: () async {
-                        await _validateRequiredFields();
-                      },
-                      startColor: AppConfig.stepsGradientStartThird,
-                      endColor: AppConfig.stepsGradientEndThird,
-                      text:'Вызвать мастера'
-                    ),
+                        onTap: () async {
+                          await _validateRequiredFields();
+                        },
+                        startColor: AppConfig.stepsGradientStartThird,
+                        endColor: AppConfig.stepsGradientEndThird,
+                        text: 'Вызвать мастера'),
                   ),
                 ),
               ),

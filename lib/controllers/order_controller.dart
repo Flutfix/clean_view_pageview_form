@@ -86,12 +86,8 @@ class OrderController {
 
   ///Посчитать итоговую стоимость
   void countTotal(int count) {
-    log('$count');
     _totalPrice += count;
-    log('$_totalPrice');
-
     setState();
-    log('$_totalPrice');
   }
 
   ///Прибавить к итоговой цене стоимость типа уборки
