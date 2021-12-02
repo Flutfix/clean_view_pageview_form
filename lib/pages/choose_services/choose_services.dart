@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
+import 'package:flutter_application_1/controllers/general_controller.dart';
 import 'package:flutter_application_1/pages/choose_services/widgets/services.dart';
 import 'package:flutter_application_1/pages/filling_data/filling_data.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
@@ -7,14 +10,11 @@ import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
 import 'package:flutter_application_1/models/services.dart';
+import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
 
 class ChooseServices extends StatefulWidget {
-  final int currentPrice;
-  const ChooseServices({
-    Key? key,
-    required this.currentPrice,
-  }) : super(key: key);
+  const ChooseServices({Key? key}) : super(key: key);
 
   @override
   _ChooseServicesState createState() => _ChooseServicesState();
@@ -25,25 +25,24 @@ class _ChooseServicesState extends State<ChooseServices> {
   late final List<ServicesModel> services;
   late int indexServices;
   late int indexColorServices;
-  late int currentPrice;
 
   @override
   void initState() {
     super.initState();
     cleaningName = ['Сухая', 'Влажная', 'Генеральная'];
     services = [
-      ServicesModel(name: '1 Окно', price: 390),
-      ServicesModel(name: 'Ванная комната', price: 290),
-      ServicesModel(name: 'Сан узел', price: 190),
-      ServicesModel(name: 'Вывоз мусора', price: 390),
+      ServicesModel(name: '1 Окно', price: AppConfig.window),
+      ServicesModel(name: 'Ванная комната', price: AppConfig.bathroom),
+      ServicesModel(name: 'Сан узел', price: AppConfig.sanNode),
+      ServicesModel(name: 'Вывоз мусора', price: AppConfig.garbageCollection),
     ];
-    currentPrice = widget.currentPrice;
     indexServices = 0;
     indexColorServices = 0;
   }
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<GeneralController>(context);
     final double width = MediaQuery.of(context).size.width;
     return Swipe(
       onSwipeRight: () => Navigator.pop(context),
@@ -81,6 +80,11 @@ class _ChooseServicesState extends State<ChooseServices> {
                                 GestureDetector(
                                   behavior: HitTestBehavior.translucent,
                                   onTap: () {
+                                    controller.orderController
+                                        .countTypeOfCleaning(
+                                      oldIndex: indexServices,
+                                      newIndex: 0,
+                                    );
                                     setState(() {
                                       indexServices = 0;
                                       indexColorServices = 0;
@@ -108,6 +112,11 @@ class _ChooseServicesState extends State<ChooseServices> {
                                 GestureDetector(
                                   behavior: HitTestBehavior.translucent,
                                   onTap: () {
+                                    controller.orderController
+                                        .countTypeOfCleaning(
+                                      oldIndex: indexServices,
+                                      newIndex: 1,
+                                    );
                                     setState(() {
                                       indexServices = 1;
                                     });
@@ -136,6 +145,11 @@ class _ChooseServicesState extends State<ChooseServices> {
                                 GestureDetector(
                                   behavior: HitTestBehavior.translucent,
                                   onTap: () {
+                                    controller.orderController
+                                        .countTypeOfCleaning(
+                                      oldIndex: indexServices,
+                                      newIndex: 2,
+                                    );
                                     setState(() {
                                       indexServices = 2;
                                       indexColorServices = 2;
@@ -212,10 +226,36 @@ class _ChooseServicesState extends State<ChooseServices> {
                                     maxCount: index == 2 ? 2 : null,
                                     isGarbageCollection:
                                         index == 3 ? true : false,
-                                    onTap: (dopCount) {
+                                    onTap: (dopTotal, dopCount) {
                                       setState(() {
-                                        currentPrice += dopCount;
+                                        controller.orderController
+                                            .countTotal(dopTotal);
                                       });
+                                      if (controller.orderController.data!
+                                          .extras.isEmpty) {
+                                        controller.orderController.addService(
+                                            extras: services[index]);
+                                      } else {
+                                        if (controller
+                                                .orderController.data!.extras
+                                                .indexWhere((element) =>
+                                                    element.name ==
+                                                    services[index].name) ==
+                                            -1) {
+                                          controller.orderController.addService(
+                                              extras: services[index]);
+                                        }
+                                        if (dopCount == 0) {
+                                          controller.orderController
+                                              .removeService(
+                                                  extras: ServicesModel(
+                                            name: services[index].name,
+                                            price: services[index].price,
+                                            currency: AppConfig.currency,
+                                            count: 1,
+                                          ));
+                                        }
+                                      }
                                     },
                                   ),
                                 ),
@@ -240,16 +280,37 @@ class _ChooseServicesState extends State<ChooseServices> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 22.0, vertical: 12),
                 child: GradientButton(
-                  text: 'Продолжить',
+                  richText: RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Мастер за ',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: AppConfig.whiteColor.withOpacity(0.4),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        TextSpan(
+                          text:
+                              '${controller.orderController.data!.totalPrice} ${AppConfig.currency}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: AppConfig.whiteColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   startColor: AppConfig.stepsGradientStartThird,
                   endColor: AppConfig.stepsGradientEndThird,
                   onTap: () {
+                    controller.orderController
+                        .setTypeOfCleaning(index: indexServices);
                     Navigator.of(context).push(
                       CustomPageRoute(
-                        FillingData(
-                          summaryPrice: currentPrice,
-                          currency: services[0].currency,
-                        ),
+                        const FillingData(),
                       ),
                     );
                   },

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
+import 'package:flutter_application_1/controllers/general_controller.dart';
 import 'package:flutter_application_1/models/info_card_model.dart';
 import 'package:flutter_application_1/models/point_row.dart';
 import 'package:flutter_application_1/pages/choose_services/choose_services.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_application_1/pages/plans_page_view/widgets/plan_positio
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class General extends StatefulWidget {
   const General({Key? key}) : super(key: key);
@@ -42,20 +44,20 @@ class _GeneralState extends State<General> {
     pageControllerBackground = ScrollController(initialScrollOffset: 0.0);
     cardsList = [
       InfoCardModel(
-        square: 50,
-        price: 1490,
-        previousPrice: 1900,
+        square: AppConfig.square50,
+        price: AppConfig.price50,
+        previousPrice: AppConfig.previousPrice50,
         image: 'lib/assets/images/first_step.png',
       ),
       InfoCardModel(
-          square: 70,
-          price: 1890,
-          previousPrice: 2900,
+          square: AppConfig.square70,
+          price: AppConfig.price70,
+          previousPrice: AppConfig.previousPrice70,
           image: 'lib/assets/images/second_step.png'),
       InfoCardModel(
-          square: 90,
-          price: 2390,
-          previousPrice: 3700,
+          square: AppConfig.square90,
+          price: AppConfig.price90,
+          previousPrice: AppConfig.previousPrice90,
           image: 'lib/assets/images/third_step.png'),
     ];
     pointsList = [
@@ -85,6 +87,7 @@ class _GeneralState extends State<General> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<GeneralController>(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: AppConfig.whiteColor,
@@ -120,10 +123,13 @@ class _GeneralState extends State<General> {
                             child: PlanCard(
                               item: cardsList[index],
                               onTap: () {
-                                Navigator.of(context)
-                                    .push(CustomPageRoute(ChooseServices(
-                                  currentPrice: cardsList[currentIndex].price,
-                                )));
+                                controller.orderController.init();
+                                controller.orderController
+                                    .setSquare(index: currentIndex);
+                                controller.orderController
+                                    .countTotal(cardsList[currentIndex].price);
+                                Navigator.of(context).push(
+                                    CustomPageRoute(const ChooseServices()));
                               },
                             ),
                           ),
@@ -208,9 +214,13 @@ class _GeneralState extends State<General> {
                 child: GradientButton(
                   text: 'Продолжить',
                   onTap: () {
-                    Navigator.of(context).push(CustomPageRoute(ChooseServices(
-                      currentPrice: cardsList[currentIndex].price,
-                    )));
+                    controller.orderController.init();
+
+                    controller.orderController.setSquare(index: currentIndex);
+                    controller.orderController
+                        .countTotal(cardsList[currentIndex].price);
+                    Navigator.of(context)
+                        .push(CustomPageRoute(const ChooseServices()));
                   },
                   startColor: buttonGradientStart,
                   endColor: buttonGradientEnd,

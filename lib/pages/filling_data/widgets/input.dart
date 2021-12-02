@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
 
@@ -8,6 +9,7 @@ class Input extends StatefulWidget {
   final String? hintText;
   final double? width;
   final TextInputType? keyboardType;
+  final List<TextInputFormatter>? textFormatters;
 
   const Input({
     Key? key,
@@ -16,6 +18,7 @@ class Input extends StatefulWidget {
     this.width,
     this.hintText,
     this.keyboardType,
+    this.textFormatters,
   }) : super(key: key);
 
   @override
@@ -32,9 +35,10 @@ class _InputState extends State<Input> {
           width: widget.width,
           height: 42,
           child: TextField(
+            inputFormatters: widget.textFormatters,
             controller: widget.controller,
             textInputAction: widget.textInputAction,
-            cursorColor:AppConfig.blueColor,
+            cursorColor: AppConfig.blueColor,
             keyboardType: widget.keyboardType,
             onChanged: (_) {
               setState(() {});
