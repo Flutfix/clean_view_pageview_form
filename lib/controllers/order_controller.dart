@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/models/services.dart';
@@ -90,12 +88,63 @@ class OrderController {
     setState();
   }
 
+  
+
+  /// Установить тип уборки
+  void setTypeOfCleaning({required int index}) {
+    switch (index) {
+      case 0:
+        _typeOfCleaning = 'Сухая';
+        break;
+      case 1:
+        _typeOfCleaning = 'Влажная';
+
+        break;
+      case 2:
+        _typeOfCleaning = 'Генеральная';
+
+        break;
+      default:
+        _typeOfCleaning = 'Влажная';
+    }
+    setState();
+  }
+
+  /// Установить выбранный доп
+  void addService({required ServicesModel extras}) {
+    _extras.add(extras);
+    setState();
+  }
+
+  /// Удалить пустые допы
+  void removeService({required ServicesModel extras}) {
+    _extras.removeWhere((element) => extras.name == element.name);
+    setState();
+  }
+
+  /// Установить ифо о клиенте
+  void setClientInfo({
+    required String city,
+    required String street,
+    required String house,
+    required String flat,
+    required String comment,
+    required String phone,
+  }) {
+    _city = city;
+    _street = street;
+    _house = house;
+    _flat = flat;
+    _comment = comment;
+    _phone = phone;
+    setState();
+  }
+
   ///Прибавить к итоговой цене стоимость типа уборки
   void countTypeOfCleaning({
     required int oldIndex,
     required int newIndex,
   }) {
-    log('old: $oldIndex new: $newIndex');
     if (oldIndex == newIndex) {
       return;
     }
@@ -225,58 +274,6 @@ class OrderController {
         }
         break;
     }
-  }
-
-  /// Установить тип уборки
-  void setTypeOfCleaning({required int index}) {
-    switch (index) {
-      case 0:
-        _typeOfCleaning = 'Сухая';
-        break;
-      case 1:
-        _typeOfCleaning = 'Влажная';
-
-        break;
-      case 2:
-        _typeOfCleaning = 'Генеральная';
-
-        break;
-      default:
-        _typeOfCleaning = 'Влажная';
-    }
-    setState();
-  }
-
-  /// Установить выбранный доп
-  void addService({required ServicesModel extras}) {
-    _extras.add(extras);
-    setState();
-  }
-
-  /// Удалить пустые допы
-  void removeService({required ServicesModel extras}) {
-    _extras.removeWhere((element) => extras.name == element.name);
-    setState();
-  }
-
-  /// Установить ифо о клиенте
-  void setClientInfo({
-    required String city,
-    required String street,
-    required String house,
-    required String flat,
-    required String comment,
-    required String phone,
-    required int totalPrice,
-  }) {
-    _city = city;
-    _street = street;
-    _house = house;
-    _flat = flat;
-    _comment = comment;
-    _phone = phone;
-    _totalPrice = _totalPrice;
-    setState();
   }
 
   ///GENERAL
