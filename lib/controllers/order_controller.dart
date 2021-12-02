@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/models/services.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -69,15 +70,165 @@ class OrderController {
     switch (index) {
       case 0:
         _square = '50 м2';
+        _totalPrice += AppConfig.dry50;
         break;
       case 1:
         _square = '70 м2';
+        _totalPrice += AppConfig.dry70;
         break;
       case 2:
         _square = '90 м2';
+        _totalPrice += AppConfig.dry90;
         break;
     }
     setState();
+  }
+
+  ///Посчитать итоговую стоимость
+  void countTotal(int count) {
+    log('$count');
+    _totalPrice += count;
+    log('$_totalPrice');
+
+    setState();
+    log('$_totalPrice');
+  }
+
+  ///Прибавить к итоговой цене стоимость типа уборки
+  void countTypeOfCleaning({
+    required int oldIndex,
+    required int newIndex,
+  }) {
+    log('old: $oldIndex new: $newIndex');
+    if (oldIndex == newIndex) {
+      return;
+    }
+    if ((oldIndex == 0 && newIndex == 1) || (oldIndex == 1 && newIndex == 0)) {
+      return;
+    }
+    switch (_square) {
+      case '50 м2':
+
+        ///Вычетаем старую цену
+        switch (oldIndex) {
+          case 0:
+            _totalPrice -= AppConfig.dry50;
+            setState();
+
+            break;
+          case 1:
+            _totalPrice -= AppConfig.wet50;
+            setState();
+
+            break;
+          case 2:
+            _totalPrice -= AppConfig.general50;
+            setState();
+
+            break;
+        }
+
+        ///Прибавляем новую
+        switch (newIndex) {
+          case 0:
+            _totalPrice += AppConfig.dry50;
+            setState();
+
+            break;
+          case 1:
+            _totalPrice += AppConfig.wet50;
+            setState();
+
+            break;
+          case 2:
+            _totalPrice += AppConfig.general50;
+            setState();
+
+            break;
+        }
+        break;
+      case '70 м2':
+
+        ///Вычетаем старую цену
+        switch (oldIndex) {
+          case 0:
+            _totalPrice -= AppConfig.dry70;
+            setState();
+
+            break;
+          case 1:
+            _totalPrice -= AppConfig.wet70;
+            setState();
+
+            break;
+          case 2:
+            _totalPrice -= AppConfig.general70;
+            setState();
+
+            break;
+        }
+
+        ///Прибавляем новую
+        switch (newIndex) {
+          case 0:
+            _totalPrice += AppConfig.dry70;
+            setState();
+
+            break;
+          case 1:
+            _totalPrice += AppConfig.wet70;
+            setState();
+
+            break;
+          case 2:
+            _totalPrice += AppConfig.general70;
+            setState();
+
+            break;
+        }
+
+        break;
+      case '90 м2':
+
+        ///Вычетаем старую цену
+        switch (oldIndex) {
+          case 0:
+            _totalPrice -= AppConfig.dry90;
+            setState();
+
+            break;
+          case 1:
+            _totalPrice -= AppConfig.wet90;
+            setState();
+
+            break;
+          case 2:
+            _totalPrice -= AppConfig.general90;
+            setState();
+
+            break;
+        }
+
+        ///Прибавляем новую
+        switch (newIndex) {
+          case 0:
+            _totalPrice += AppConfig.dry90;
+            setState();
+
+            break;
+          case 1:
+            _totalPrice += AppConfig.wet90;
+            setState();
+
+            break;
+          case 2:
+            _totalPrice += AppConfig.general90;
+            setState();
+
+            break;
+        }
+        break;
+    }
   }
 
   /// Установить тип уборки

@@ -14,13 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
 
 class FillingData extends StatefulWidget {
-  final int summaryPrice;
-  final String currency;
-  const FillingData({
-    Key? key,
-    required this.summaryPrice,
-    required this.currency,
-  }) : super(key: key);
+  const FillingData({Key? key}) : super(key: key);
 
   @override
   _FillingDataState createState() => _FillingDataState();
@@ -320,28 +314,7 @@ class _FillingDataState extends State<FillingData> {
                       },
                       startColor: AppConfig.stepsGradientStartThird,
                       endColor: AppConfig.stepsGradientEndThird,
-                      richText: RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Мастер за ',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: AppConfig.whiteColor.withOpacity(0.4),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            TextSpan(
-                              text: '${widget.summaryPrice} ${widget.currency}',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: AppConfig.whiteColor,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      text:'Вызвать мастера'
                     ),
                   ),
                 ),
