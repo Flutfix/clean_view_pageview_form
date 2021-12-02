@@ -12,4 +12,12 @@ class ServicesModel {
     this.currency = AppConfig.currency,
     this.count = 0,
   });
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['name'] = name;
+    data['quantity'] = count;
+    data['cost'] = price;
+    return data;
+  }
 }

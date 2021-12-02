@@ -1,10 +1,7 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
-import 'package:flutter_application_1/controllers/general_controller.dart';
 import 'package:flutter_application_1/models/services.dart';
-import 'package:provider/provider.dart';
 
 class Services extends StatefulWidget {
   final ServicesModel services;

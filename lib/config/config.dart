@@ -8,6 +8,10 @@ class AppConfig {
   static const String currency = 'руб';
   static const String currencySymbol = '₽';
 
+  ///API Url
+  static const String apiUrl = "http://sithell.me/superclean/";
+
+  ///Шрифт
   static const String fontFamilyInter = "Inter";
 
   ///*------------------Цены-----------------------------*///

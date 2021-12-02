@@ -38,6 +38,7 @@ dependencies:
   swipe: ^0.0.1
   rxdart: ^0.27.3
   provider: ^6.0.1
+  dio: ^4.0.4
   mask_text_input_formatter: ^2.0.0
   
 
