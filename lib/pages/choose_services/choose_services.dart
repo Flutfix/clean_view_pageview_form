@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/controllers/general_controller.dart';
@@ -277,7 +276,7 @@ class _ChooseServicesState extends State<ChooseServices> {
               color: AppConfig.whiteColor,
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 22.0, vertical: 12),
+                    const EdgeInsets.symmetric(horizontal: 22.0, vertical: 22),
                 child: GradientButton(
                   richText: RichText(
                     text: TextSpan(

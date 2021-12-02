@@ -207,8 +207,8 @@ class _GeneralState extends State<General> {
               width: width,
               color: AppConfig.whiteColor,
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 22.0, vertical: 12),
+                padding: const EdgeInsets.only(
+                    left: 22.0, right: 22.0, bottom: 22, top: 12),
                 child: GradientButton(
                   text: 'Продолжить',
                   onTap: () {

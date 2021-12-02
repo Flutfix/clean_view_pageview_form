@@ -286,6 +286,7 @@ class _FillingDataState extends State<FillingData> {
                             child: Input(
                               textInputAction: TextInputAction.done,
                               width: width - 122,
+                              scrollPadding: const EdgeInsets.only(bottom: 150),
                               hintText: 'Номер мобильного телефона',
                               controller: controllerNumber,
                               keyboardType: TextInputType.number,
@@ -297,14 +298,27 @@ class _FillingDataState extends State<FillingData> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 120),
+
+                        /// Нижний блок [Градиент кнопка]
+                        Visibility(
+                          visible:
+                              MediaQuery.of(context).viewInsets.bottom != 0,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 24.0),
+                            child: GradientButton(
+                                onTap: () async {
+                                  await _validateRequiredFields(controller);
+                                },
+                                startColor: AppConfig.stepsGradientStartThird,
+                                endColor: AppConfig.stepsGradientEndThird,
+                                text: 'Вызвать мастера'),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
               ),
-
-              /// Нижний блок [Градиент кнопка]
               Visibility(
                 visible: MediaQuery.of(context).viewInsets.bottom == 0,
                 child: Container(
