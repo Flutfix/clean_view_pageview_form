@@ -10,17 +10,12 @@ import 'package:flutter_application_1/pages/successfull_order/successfull_order_
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
 
 class FillingData extends StatefulWidget {
-  final int summaryPrice;
-  final String currency;
-  const FillingData({
-    Key? key,
-    required this.summaryPrice,
-    required this.currency,
-  }) : super(key: key);
+  const FillingData({Key? key}) : super(key: key);
 
   @override
   _FillingDataState createState() => _FillingDataState();
@@ -295,6 +290,11 @@ class _FillingDataState extends State<FillingData> {
                               hintText: 'Номер мобильного телефона',
                               controller: controllerNumber,
                               keyboardType: TextInputType.number,
+                              textFormatters: [
+                                MaskTextInputFormatter(
+                                    mask: '+7 ### ### ## ##',
+                                    filter: {"#": RegExp(r'[0-9]')})
+                              ],
                             ),
                           ),
                         ),
@@ -315,34 +315,12 @@ class _FillingDataState extends State<FillingData> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 22.0, vertical: 12),
                     child: GradientButton(
-                      onTap: () async {
-                        await _validateRequiredFields();
-                      },
-                      startColor: AppConfig.stepsGradientStartThird,
-                      endColor: AppConfig.stepsGradientEndThird,
-                      richText: RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Мастер за ',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: AppConfig.whiteColor.withOpacity(0.4),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            TextSpan(
-                              text: '${widget.summaryPrice} ${widget.currency}',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: AppConfig.whiteColor,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                        onTap: () async {
+                          await _validateRequiredFields();
+                        },
+                        startColor: AppConfig.stepsGradientStartThird,
+                        endColor: AppConfig.stepsGradientEndThird,
+                        text: 'Вызвать мастера'),
                   ),
                 ),
               ),

@@ -44,20 +44,20 @@ class _GeneralState extends State<General> {
     pageControllerBackground = ScrollController(initialScrollOffset: 0.0);
     cardsList = [
       InfoCardModel(
-        square: 50,
-        price: 1490,
-        previousPrice: 1900,
+        square: AppConfig.square50,
+        price: AppConfig.price50,
+        previousPrice: AppConfig.previousPrice50,
         image: 'lib/assets/images/first_step.png',
       ),
       InfoCardModel(
-          square: 70,
-          price: 1890,
-          previousPrice: 2900,
+          square: AppConfig.square70,
+          price: AppConfig.price70,
+          previousPrice: AppConfig.previousPrice70,
           image: 'lib/assets/images/second_step.png'),
       InfoCardModel(
-          square: 90,
-          price: 2390,
-          previousPrice: 3700,
+          square: AppConfig.square90,
+          price: AppConfig.price90,
+          previousPrice: AppConfig.previousPrice90,
           image: 'lib/assets/images/third_step.png'),
     ];
     pointsList = [
@@ -126,11 +126,10 @@ class _GeneralState extends State<General> {
                                 controller.orderController.init();
                                 controller.orderController
                                     .setSquare(index: currentIndex);
-
-                                Navigator.of(context)
-                                    .push(CustomPageRoute(ChooseServices(
-                                  currentPrice: cardsList[currentIndex].price,
-                                )));
+                                controller.orderController
+                                    .countTotal(cardsList[currentIndex].price);
+                                Navigator.of(context).push(
+                                    CustomPageRoute(const ChooseServices()));
                               },
                             ),
                           ),
@@ -215,12 +214,13 @@ class _GeneralState extends State<General> {
                 child: GradientButton(
                   text: 'Продолжить',
                   onTap: () {
-                                controller.orderController.init();
+                    controller.orderController.init();
 
                     controller.orderController.setSquare(index: currentIndex);
-                    Navigator.of(context).push(CustomPageRoute(ChooseServices(
-                      currentPrice: cardsList[currentIndex].price,
-                    )));
+                    controller.orderController
+                        .countTotal(cardsList[currentIndex].price);
+                    Navigator.of(context)
+                        .push(CustomPageRoute(const ChooseServices()));
                   },
                   startColor: buttonGradientStart,
                   endColor: buttonGradientEnd,

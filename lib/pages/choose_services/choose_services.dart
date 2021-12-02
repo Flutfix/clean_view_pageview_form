@@ -14,11 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
 
 class ChooseServices extends StatefulWidget {
-  final int currentPrice;
-  const ChooseServices({
-    Key? key,
-    required this.currentPrice,
-  }) : super(key: key);
+  const ChooseServices({Key? key}) : super(key: key);
 
   @override
   _ChooseServicesState createState() => _ChooseServicesState();
@@ -29,19 +25,17 @@ class _ChooseServicesState extends State<ChooseServices> {
   late final List<ServicesModel> services;
   late int indexServices;
   late int indexColorServices;
-  late int currentPrice;
 
   @override
   void initState() {
     super.initState();
     cleaningName = ['Сухая', 'Влажная', 'Генеральная'];
     services = [
-      ServicesModel(name: '1 Окно', price: 390),
-      ServicesModel(name: 'Ванная комната', price: 290),
-      ServicesModel(name: 'Сан узел', price: 190),
-      ServicesModel(name: 'Вывоз мусора', price: 390),
+      ServicesModel(name: '1 Окно', price: AppConfig.window),
+      ServicesModel(name: 'Ванная комната', price: AppConfig.bathroom),
+      ServicesModel(name: 'Сан узел', price: AppConfig.sanNode),
+      ServicesModel(name: 'Вывоз мусора', price: AppConfig.garbageCollection),
     ];
-    currentPrice = widget.currentPrice;
     indexServices = 0;
     indexColorServices = 0;
   }
@@ -86,6 +80,11 @@ class _ChooseServicesState extends State<ChooseServices> {
                                 GestureDetector(
                                   behavior: HitTestBehavior.translucent,
                                   onTap: () {
+                                    controller.orderController
+                                        .countTypeOfCleaning(
+                                      oldIndex: indexServices,
+                                      newIndex: 0,
+                                    );
                                     setState(() {
                                       indexServices = 0;
                                       indexColorServices = 0;
@@ -113,6 +112,11 @@ class _ChooseServicesState extends State<ChooseServices> {
                                 GestureDetector(
                                   behavior: HitTestBehavior.translucent,
                                   onTap: () {
+                                    controller.orderController
+                                        .countTypeOfCleaning(
+                                      oldIndex: indexServices,
+                                      newIndex: 1,
+                                    );
                                     setState(() {
                                       indexServices = 1;
                                     });
@@ -141,6 +145,11 @@ class _ChooseServicesState extends State<ChooseServices> {
                                 GestureDetector(
                                   behavior: HitTestBehavior.translucent,
                                   onTap: () {
+                                    controller.orderController
+                                        .countTypeOfCleaning(
+                                      oldIndex: indexServices,
+                                      newIndex: 2,
+                                    );
                                     setState(() {
                                       indexServices = 2;
                                       indexColorServices = 2;
@@ -219,7 +228,8 @@ class _ChooseServicesState extends State<ChooseServices> {
                                         index == 3 ? true : false,
                                     onTap: (dopTotal, dopCount) {
                                       setState(() {
-                                        currentPrice += dopTotal;
+                                        controller.orderController
+                                            .countTotal(dopTotal);
                                       });
                                       if (controller.orderController.data!
                                           .extras.isEmpty) {
@@ -270,7 +280,29 @@ class _ChooseServicesState extends State<ChooseServices> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 22.0, vertical: 12),
                 child: GradientButton(
-                  text: 'Продолжить',
+                  richText: RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Мастер за ',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: AppConfig.whiteColor.withOpacity(0.4),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        TextSpan(
+                          text:
+                              '${controller.orderController.data!.totalPrice} ${AppConfig.currency}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: AppConfig.whiteColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   startColor: AppConfig.stepsGradientStartThird,
                   endColor: AppConfig.stepsGradientEndThird,
                   onTap: () {
@@ -278,10 +310,7 @@ class _ChooseServicesState extends State<ChooseServices> {
                         .setTypeOfCleaning(index: indexServices);
                     Navigator.of(context).push(
                       CustomPageRoute(
-                        FillingData(
-                          summaryPrice: currentPrice,
-                          currency: services[0].currency,
-                        ),
+                        const FillingData(),
                       ),
                     );
                   },
