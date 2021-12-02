@@ -351,23 +351,22 @@ class _FillingDataState extends State<FillingData> {
         comment: controllerComment.text,
         phone: controllerNumber.text,
       );
-      var statusCode = await postOrder(
-        endPoint: 'order',
-        square: controller.orderController.data!.square,
-        typeOfCleaning: controller.orderController.data!.typeOfCleaning,
-        extras: controller.orderController.data!.extras,
-        city: controller.orderController.data!.city,
-        street: controller.orderController.data!.street,
-        house: controller.orderController.data!.house,
-        flat: controller.orderController.data!.flat,
-        comment: controller.orderController.data!.comment,
-        phone: controller.orderController.data!.phone,
-        totalPrice: controller.orderController.data!.totalPrice,
-      );
-      if (statusCode == 200) {
-        Navigator.of(context)
-            .push(CustomPageRoute(const SuccessFullOrderPage()));
-      }
+      // var statusCode = await postOrder(
+      //   endPoint: 'order',
+      //   square: controller.orderController.data!.square,
+      //   typeOfCleaning: controller.orderController.data!.typeOfCleaning,
+      //   extras: controller.orderController.data!.extras,
+      //   city: controller.orderController.data!.city,
+      //   street: controller.orderController.data!.street,
+      //   house: controller.orderController.data!.house,
+      //   flat: controller.orderController.data!.flat,
+      //   comment: controller.orderController.data!.comment,
+      //   phone: controller.orderController.data!.phone,
+      //   totalPrice: controller.orderController.data!.totalPrice,
+      // );
+      // if (statusCode == 200) {
+      Navigator.of(context).push(CustomPageRoute(const SuccessFullOrderPage()));
+      // }
       return;
     }
     for (int i = 0; i < requiredTextControllers.length; i++) {
