@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
+import 'package:flutter_application_1/controllers/general_controller.dart';
 import 'package:flutter_application_1/models/info_card_model.dart';
 import 'package:flutter_application_1/models/point_row.dart';
 import 'package:flutter_application_1/pages/choose_services/choose_services.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_application_1/pages/plans_page_view/widgets/plan_positio
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class General extends StatefulWidget {
   const General({Key? key}) : super(key: key);
@@ -85,6 +87,7 @@ class _GeneralState extends State<General> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<GeneralController>(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: AppConfig.whiteColor,
@@ -120,6 +123,10 @@ class _GeneralState extends State<General> {
                             child: PlanCard(
                               item: cardsList[index],
                               onTap: () {
+                                controller.orderController.init();
+                                controller.orderController
+                                    .setSquare(index: currentIndex);
+
                                 Navigator.of(context)
                                     .push(CustomPageRoute(ChooseServices(
                                   currentPrice: cardsList[currentIndex].price,
@@ -208,6 +215,9 @@ class _GeneralState extends State<General> {
                 child: GradientButton(
                   text: 'Продолжить',
                   onTap: () {
+                                controller.orderController.init();
+
+                    controller.orderController.setSquare(index: currentIndex);
                     Navigator.of(context).push(CustomPageRoute(ChooseServices(
                       currentPrice: cardsList[currentIndex].price,
                     )));

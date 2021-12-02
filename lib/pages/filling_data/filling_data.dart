@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
+import 'package:flutter_application_1/controllers/general_controller.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/input.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
@@ -7,6 +10,7 @@ import 'package:flutter_application_1/pages/successfull_order/successfull_order_
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
+import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
 
 class FillingData extends StatefulWidget {
@@ -29,6 +33,7 @@ class _FillingDataState extends State<FillingData> {
   late final TextEditingController controllerFlat;
   late final TextEditingController controllerComment;
   late final TextEditingController controllerNumber;
+  late final List<TextEditingController> requiredTextControllers;
 
   @override
   void initState() {
@@ -39,10 +44,18 @@ class _FillingDataState extends State<FillingData> {
     controllerFlat = TextEditingController();
     controllerComment = TextEditingController();
     controllerNumber = TextEditingController();
+    requiredTextControllers = [
+      controllerCity,
+      controllerStreet,
+      controllerHome,
+      controllerFlat,
+      controllerNumber,
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<GeneralController>(context);
     final width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -303,8 +316,7 @@ class _FillingDataState extends State<FillingData> {
                         horizontal: 22.0, vertical: 12),
                     child: GradientButton(
                       onTap: () async {
-                        Navigator.of(context).push(
-                            CustomPageRoute(const SuccessFullOrderPage()));
+                        await _validateRequiredFields();
                       },
                       startColor: AppConfig.stepsGradientStartThird,
                       endColor: AppConfig.stepsGradientEndThird,
@@ -339,5 +351,38 @@ class _FillingDataState extends State<FillingData> {
         ),
       ),
     );
+  }
+
+  Future<void> _validateRequiredFields() async {
+    int countNotEmptyFields = 0;
+    for (int i = 0; i < requiredTextControllers.length; i++) {
+      if (requiredTextControllers[i].text.isNotEmpty) {
+        countNotEmptyFields++;
+      }
+    }
+    if (countNotEmptyFields == 5 &&
+        controllerCity.text != ' ' &&
+        controllerStreet.text != ' ' &&
+        controllerHome.text != ' ' &&
+        controllerFlat.text != ' ' &&
+        controllerNumber.text != ' ') {
+      Navigator.of(context).push(CustomPageRoute(const SuccessFullOrderPage()));
+      return;
+    }
+    for (int i = 0; i < requiredTextControllers.length; i++) {
+      if (requiredTextControllers[i].text.isEmpty) {
+        setState(() {
+          requiredTextControllers[i].text = ' ';
+        });
+      }
+    }
+    await Future.delayed(const Duration(milliseconds: 500));
+    for (int i = 0; i < requiredTextControllers.length; i++) {
+      if (requiredTextControllers[i].text == ' ') {
+        setState(() {
+          requiredTextControllers[i].clear();
+        });
+      }
+    }
   }
 }

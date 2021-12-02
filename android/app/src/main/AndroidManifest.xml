@@ -1,14 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.test_nat">
-    <uses-permission android:name="android.permission.INTERNET" />
-     <queries>
-    <intent>
-      <action android:name="android.intent.action.SENDTO" />
-      <data android:scheme="mailto" />
-    </intent>
-  </queries>
+    package="com.example.super_clean">
    <application
-        android:label="test_nat"
+        android:label="Super Clean"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -45,5 +38,4 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
-    
 </manifest>
