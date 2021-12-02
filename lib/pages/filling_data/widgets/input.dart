@@ -10,6 +10,8 @@ class Input extends StatefulWidget {
   final double? width;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? textFormatters;
+  final EdgeInsets scrollPadding;
+  final ScrollController? scrollCOntroller;
 
   const Input({
     Key? key,
@@ -19,6 +21,8 @@ class Input extends StatefulWidget {
     this.hintText,
     this.keyboardType,
     this.textFormatters,
+    this.scrollPadding = EdgeInsets.zero,
+    this.scrollCOntroller,
   }) : super(key: key);
 
   @override
@@ -38,6 +42,8 @@ class _InputState extends State<Input> {
             inputFormatters: widget.textFormatters,
             controller: widget.controller,
             textInputAction: widget.textInputAction,
+            scrollController: widget.scrollCOntroller,
+            scrollPadding: widget.scrollPadding,
             cursorColor: AppConfig.blueColor,
             keyboardType: widget.keyboardType,
             onChanged: (_) {

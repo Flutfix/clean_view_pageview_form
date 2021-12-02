@@ -68,15 +68,12 @@ class OrderController {
     switch (index) {
       case 0:
         _square = '50 м2';
-        _totalPrice += AppConfig.dry50;
         break;
       case 1:
         _square = '70 м2';
-        _totalPrice += AppConfig.dry70;
         break;
       case 2:
         _square = '90 м2';
-        _totalPrice += AppConfig.dry90;
         break;
     }
     setState();
@@ -87,8 +84,6 @@ class OrderController {
     _totalPrice += count;
     setState();
   }
-
-  
 
   /// Установить тип уборки
   void setTypeOfCleaning({required int index}) {
@@ -148,18 +143,12 @@ class OrderController {
     if (oldIndex == newIndex) {
       return;
     }
-    if ((oldIndex == 0 && newIndex == 1) || (oldIndex == 1 && newIndex == 0)) {
-      return;
-    }
     switch (_square) {
       case '50 м2':
 
         ///Вычетаем старую цену
         switch (oldIndex) {
           case 0:
-            _totalPrice -= AppConfig.dry50;
-            setState();
-
             break;
           case 1:
             _totalPrice -= AppConfig.wet50;
@@ -176,9 +165,6 @@ class OrderController {
         ///Прибавляем новую
         switch (newIndex) {
           case 0:
-            _totalPrice += AppConfig.dry50;
-            setState();
-
             break;
           case 1:
             _totalPrice += AppConfig.wet50;
@@ -197,9 +183,6 @@ class OrderController {
         ///Вычетаем старую цену
         switch (oldIndex) {
           case 0:
-            _totalPrice -= AppConfig.dry70;
-            setState();
-
             break;
           case 1:
             _totalPrice -= AppConfig.wet70;
@@ -216,9 +199,6 @@ class OrderController {
         ///Прибавляем новую
         switch (newIndex) {
           case 0:
-            _totalPrice += AppConfig.dry70;
-            setState();
-
             break;
           case 1:
             _totalPrice += AppConfig.wet70;
@@ -238,9 +218,6 @@ class OrderController {
         ///Вычетаем старую цену
         switch (oldIndex) {
           case 0:
-            _totalPrice -= AppConfig.dry90;
-            setState();
-
             break;
           case 1:
             _totalPrice -= AppConfig.wet90;
@@ -257,9 +234,6 @@ class OrderController {
         ///Прибавляем новую
         switch (newIndex) {
           case 0:
-            _totalPrice += AppConfig.dry90;
-            setState();
-
             break;
           case 1:
             _totalPrice += AppConfig.wet90;
