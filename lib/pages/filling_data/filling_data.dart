@@ -66,6 +66,7 @@ class _FillingDataState extends State<FillingData> {
     setState(() {
       _loading = true;
     });
+    FocusManager.instance.primaryFocus?.unfocus();
 
     ///Request func
     var statusCode = await postOrder(
