@@ -25,7 +25,6 @@ Future<dynamic> postOrder({
     receiveTimeout: 10000,
   );
   final dioClient = Dio(options);
-  log(url);
   final Map<String, dynamic> body = {
     'phone': phone,
     'city': city,
