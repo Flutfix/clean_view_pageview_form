@@ -11,7 +11,6 @@ import 'package:flutter_application_1/requests/post_order.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
@@ -31,14 +30,14 @@ class _FillingDataState extends State<FillingData> {
   late final TextEditingController controllerComment;
   late final TextEditingController controllerNumber;
   late final List<TextEditingController> requiredTextControllers;
-  late bool _canVibrate;
+  // late bool _canVibrate;
   late bool _loading;
 
   @override
   void initState() {
     super.initState();
-    _canVibrate = true;
-    _initVibrate();
+    // _canVibrate = true;
+    // _initVibrate();
     _loading = false;
     controllerCity = TextEditingController();
     controllerStreet = TextEditingController();
@@ -55,12 +54,12 @@ class _FillingDataState extends State<FillingData> {
     ];
   }
 
-  Future<void> _initVibrate() async {
-    bool canVibrate = await Vibrate.canVibrate;
-    setState(() {
-      _canVibrate = canVibrate;
-    });
-  }
+  // Future<void> _initVibrate() async {
+  //   bool canVibrate = await Vibrate.canVibrate;
+  //   setState(() {
+  //     _canVibrate = canVibrate;
+  //   });
+  // }
 
   Future<int> _postOrderLoading(GeneralController controller) async {
     setState(() {
@@ -441,25 +440,25 @@ class _FillingDataState extends State<FillingData> {
       );
       var statusCode = await _postOrderLoading(controller);
       if (statusCode == 200) {
-        if (_canVibrate) {
-          try {
-            Vibrate.feedback(FeedbackType.success);
-          } catch (e) {
-            // ignore: avoid_print
-            print(e);
-          }
-        }
+        // if (_canVibrate) {
+        //   try {
+        //     Vibrate.feedback(FeedbackType.success);
+        //   } catch (e) {
+        //     // ignore: avoid_print
+        //     print(e);
+        //   }
+        // }
         Navigator.of(context)
             .push(CustomPageRoute(const SuccessFullOrderPage()));
       } else {
-        if (_canVibrate) {
-          try {
-            Vibrate.feedback(FeedbackType.error);
-          } catch (e) {
-            // ignore: avoid_print
-            print(e);
-          }
-        }
+        // if (_canVibrate) {
+        //   try {
+        //     Vibrate.feedback(FeedbackType.error);
+        //   } catch (e) {
+        //     // ignore: avoid_print
+        //     print(e);
+        //   }
+        // }
       }
       return;
     }

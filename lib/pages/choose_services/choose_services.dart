@@ -9,7 +9,6 @@ import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
 import 'package:flutter_application_1/models/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
 
@@ -25,13 +24,13 @@ class _ChooseServicesState extends State<ChooseServices> {
   late final List<ServicesModel> services;
   late int indexServices;
   late int indexColorServices;
-  late bool _canVibrate;
+  // late bool _canVibrate;
 
   @override
   void initState() {
     super.initState();
-    _canVibrate = true;
-    _initVibrate();
+    // _canVibrate = true;
+    // _initVibrate();
     cleaningName = ['Сухая', 'Влажная', 'Генеральная'];
     services = [
       ServicesModel(name: '1 Окно', price: AppConfig.window),
@@ -43,12 +42,12 @@ class _ChooseServicesState extends State<ChooseServices> {
     indexColorServices = 0;
   }
 
-  Future<void> _initVibrate() async {
-    bool canVibrate = await Vibrate.canVibrate;
-    setState(() {
-      _canVibrate = canVibrate;
-    });
-  }
+  // Future<void> _initVibrate() async {
+  //   bool canVibrate = await Vibrate.canVibrate;
+  //   setState(() {
+  //     _canVibrate = canVibrate;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -237,15 +236,15 @@ class _ChooseServicesState extends State<ChooseServices> {
                                     isGarbageCollection:
                                         index == 3 ? true : false,
                                     onTap: (dopTotal, dopCount) {
-                                      if (_canVibrate) {
-                                        try {
-                                          Vibrate.feedback(
-                                              FeedbackType.selection);
-                                        } catch (e) {
-                                          // ignore: avoid_print
-                                          print(e);
-                                        }
-                                      }
+                                      // if (_canVibrate) {
+                                      //   try {
+                                      //     Vibrate.feedback(
+                                      //         FeedbackType.selection);
+                                      //   } catch (e) {
+                                      //     // ignore: avoid_print
+                                      //     print(e);
+                                      //   }
+                                      // }
                                       setState(() {
                                         controller.orderController
                                             .countTotal(dopTotal);
@@ -329,14 +328,14 @@ class _ChooseServicesState extends State<ChooseServices> {
                     onTap: () {
                       controller.orderController
                           .setTypeOfCleaning(index: indexServices);
-                      if (_canVibrate) {
-                        try {
-                          Vibrate.feedback(FeedbackType.light);
-                        } catch (e) {
-                          // ignore: avoid_print
-                          print(e);
-                        }
-                      }
+                      // if (_canVibrate) {
+                      //   try {
+                      //     Vibrate.feedback(FeedbackType.light);
+                      //   } catch (e) {
+                      //     // ignore: avoid_print
+                      //     print(e);
+                      //   }
+                      // }
                       Navigator.of(context).push(
                         CustomPageRoute(
                           const FillingData(),
