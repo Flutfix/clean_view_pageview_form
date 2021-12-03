@@ -112,7 +112,9 @@ class _GeneralState extends State<General> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+                physics: MediaQuery.of(context).size.height < 797
+                    ? const BouncingScrollPhysics()
+                    : const NeverScrollableScrollPhysics(),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
