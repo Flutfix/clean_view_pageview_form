@@ -9,7 +9,7 @@ class AppConfig {
   static const String currencySymbol = '₽';
 
   ///API Url
-  static const String apiUrl = "http://superclean.ru/";
+  static const String apiUrl = "http://80.87.198.249:8888/";
 
   ///Шрифт
   static const String fontFamilyInter = "Inter";
