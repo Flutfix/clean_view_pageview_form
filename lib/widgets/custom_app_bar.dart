@@ -2,13 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool isBackArrow;
+  final double height;
+
   const CustomAppBar({
     Key? key,
+    this.height = 60,
     this.isBackArrow = false,
   }) : super(key: key);
 
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+
+  @override
+  Size get preferredSize => Size.fromHeight(height);
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,7 +28,7 @@ class CustomAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            isBackArrow
+            widget.isBackArrow
                 ? GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {

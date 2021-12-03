@@ -6,6 +6,7 @@ import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_but
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:swipe/swipe.dart';
 
 class SuccessFullOrderPage extends StatefulWidget {
@@ -16,6 +17,22 @@ class SuccessFullOrderPage extends StatefulWidget {
 }
 
 class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
+  late bool _canVibrate;
+
+  @override
+  void initState() {
+    _canVibrate = true;
+    _initVibrate();
+    super.initState();
+  }
+
+  Future<void> _initVibrate() async {
+    bool canVibrate = await Vibrate.canVibrate;
+    setState(() {
+      _canVibrate = canVibrate;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -23,11 +40,11 @@ class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
       onSwipeRight: () => Navigator.of(context)
           .pushAndRemoveUntil(CustomPageRoute(const General()), (r) => false),
       child: Scaffold(
+        appBar: const CustomAppBar(isBackArrow: true),
         backgroundColor: AppConfig.whiteColor,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const CustomAppBar(isBackArrow: true),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -50,7 +67,8 @@ class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              padding: const EdgeInsets.only(
+                  left: 22.0, right: 22.0, bottom: 22, top: 12),
               child: Column(
                 children: [
                   /// Подарок
@@ -85,11 +103,18 @@ class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
                     startColor: AppConfig.stepsGradientStartThird,
                     endColor: AppConfig.stepsGradientEndThird,
                     onTap: () {
+                      if (_canVibrate) {
+                        try {
+                          Vibrate.feedback(FeedbackType.light);
+                        } catch (e) {
+                          // ignore: avoid_print
+                          print(e);
+                        }
+                      }
                       Navigator.of(context).pushAndRemoveUntil(
                           CustomPageRoute(const General()), (r) => false);
                     },
                   ),
-                  const SizedBox(height: 12),
                 ],
               ),
             )

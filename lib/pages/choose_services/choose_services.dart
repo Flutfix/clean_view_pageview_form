@@ -8,6 +8,8 @@ import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
 import 'package:flutter_application_1/models/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
 
@@ -23,10 +25,13 @@ class _ChooseServicesState extends State<ChooseServices> {
   late final List<ServicesModel> services;
   late int indexServices;
   late int indexColorServices;
+  late bool _canVibrate;
 
   @override
   void initState() {
     super.initState();
+    _canVibrate = true;
+    _initVibrate();
     cleaningName = ['Сухая', 'Влажная', 'Генеральная'];
     services = [
       ServicesModel(name: '1 Окно', price: AppConfig.window),
@@ -38,6 +43,13 @@ class _ChooseServicesState extends State<ChooseServices> {
     indexColorServices = 0;
   }
 
+  Future<void> _initVibrate() async {
+    bool canVibrate = await Vibrate.canVibrate;
+    setState(() {
+      _canVibrate = canVibrate;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var controller = Provider.of<GeneralController>(context);
@@ -45,11 +57,11 @@ class _ChooseServicesState extends State<ChooseServices> {
     return Swipe(
       onSwipeRight: () => Navigator.pop(context),
       child: Scaffold(
+        appBar: const CustomAppBar(isBackArrow: true),
         backgroundColor: AppConfig.whiteColor,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const CustomAppBar(isBackArrow: true),
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -225,6 +237,15 @@ class _ChooseServicesState extends State<ChooseServices> {
                                     isGarbageCollection:
                                         index == 3 ? true : false,
                                     onTap: (dopTotal, dopCount) {
+                                      if (_canVibrate) {
+                                        try {
+                                          Vibrate.feedback(
+                                              FeedbackType.selection);
+                                        } catch (e) {
+                                          // ignore: avoid_print
+                                          print(e);
+                                        }
+                                      }
                                       setState(() {
                                         controller.orderController
                                             .countTotal(dopTotal);
@@ -263,7 +284,7 @@ class _ChooseServicesState extends State<ChooseServices> {
                           },
                         ),
                       ),
-                      const SizedBox(height: 60),
+                      SizedBox(height: 30.h),
                     ],
                   ),
                 ),
@@ -271,47 +292,58 @@ class _ChooseServicesState extends State<ChooseServices> {
             ),
 
             /// Нижний блок [Градиент кнопка]
-            Container(
-              width: width,
-              color: AppConfig.whiteColor,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 22.0, vertical: 22),
-                child: GradientButton(
-                  richText: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Мастер за ',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: AppConfig.whiteColor.withOpacity(0.4),
-                            fontWeight: FontWeight.w500,
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: width,
+                color: AppConfig.whiteColor,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 22.0, right: 22.0, bottom: 22, top: 12),
+                  child: GradientButton(
+                    richText: RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Мастер за ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: AppConfig.whiteColor.withOpacity(0.4),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text:
-                              '${controller.orderController.data!.totalPrice} ${AppConfig.currency}',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: AppConfig.whiteColor,
-                            fontWeight: FontWeight.w600,
+                          TextSpan(
+                            text:
+                                '${controller.orderController.data!.totalPrice} ${AppConfig.currency}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: AppConfig.whiteColor,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  startColor: AppConfig.stepsGradientStartThird,
-                  endColor: AppConfig.stepsGradientEndThird,
-                  onTap: () {
-                    controller.orderController
-                        .setTypeOfCleaning(index: indexServices);
-                    Navigator.of(context).push(
-                      CustomPageRoute(
-                        const FillingData(),
+                        ],
                       ),
-                    );
-                  },
+                    ),
+                    startColor: AppConfig.stepsGradientStartThird,
+                    endColor: AppConfig.stepsGradientEndThird,
+                    onTap: () {
+                      controller.orderController
+                          .setTypeOfCleaning(index: indexServices);
+                      if (_canVibrate) {
+                        try {
+                          Vibrate.feedback(FeedbackType.light);
+                        } catch (e) {
+                          // ignore: avoid_print
+                          print(e);
+                        }
+                      }
+                      Navigator.of(context).push(
+                        CustomPageRoute(
+                          const FillingData(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

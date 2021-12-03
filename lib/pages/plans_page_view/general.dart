@@ -9,7 +9,9 @@ import 'package:flutter_application_1/pages/plans_page_view/widgets/plan_card.da
 import 'package:flutter_application_1/pages/plans_page_view/widgets/plan_position.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
 
 class General extends StatefulWidget {
@@ -24,6 +26,7 @@ class _GeneralState extends State<General> {
   late ScrollController pageControllerBackground;
   late List<PointRowModel> pointsList;
   late List<InfoCardModel> cardsList;
+  late bool _canVibrate;
 
   // Градиенты
   late Color pointGradientStart;
@@ -36,6 +39,9 @@ class _GeneralState extends State<General> {
   @override
   void initState() {
     super.initState();
+    _canVibrate = true;
+    _initVibrate();
+
     currentIndex = 0;
     setconfigurationPage(currentIndex);
     pageControllerPage = PageController(initialPage: 0);
@@ -83,17 +89,27 @@ class _GeneralState extends State<General> {
     ];
   }
 
+  Future<void> _initVibrate() async {
+    bool canVibrate = await Vibrate.canVibrate;
+    setState(() {
+      _canVibrate = canVibrate;
+      _canVibrate
+          ? debugPrint('This device can vibrate')
+          : debugPrint('This device cannot vibrate');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var controller = Provider.of<GeneralController>(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+        appBar: const CustomAppBar(),
         backgroundColor: AppConfig.whiteColor,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CustomAppBar(),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -154,6 +170,9 @@ class _GeneralState extends State<General> {
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         width: width,
+                        height: MediaQuery.of(context).size.height > 812
+                            ? 354.h
+                            : 270.h,
                         decoration: BoxDecoration(
                           color: AppConfig.whiteColor,
                           borderRadius: const BorderRadius.only(
@@ -168,8 +187,8 @@ class _GeneralState extends State<General> {
                           ],
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 22.0, vertical: 32),
+                          padding: const EdgeInsets.only(
+                              left: 22.0, right: 22.0, top: 32),
                           child: Column(
                             children: [
                               // Пункты
@@ -191,7 +210,7 @@ class _GeneralState extends State<General> {
                                   }),
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              // SizedBox(height: 80.h),
                             ],
                           ),
                         ),
@@ -217,6 +236,14 @@ class _GeneralState extends State<General> {
                     controller.orderController.setSquare(index: currentIndex);
                     controller.orderController
                         .countTotal(cardsList[currentIndex].price);
+                    if (_canVibrate) {
+                      try {
+                        Vibrate.feedback(FeedbackType.light);
+                      } catch (e) {
+                        // ignore: avoid_print
+                        print(e);
+                      }
+                    }
                     Navigator.of(context)
                         .push(CustomPageRoute(const ChooseServices()));
                   },
