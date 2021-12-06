@@ -55,13 +55,13 @@ class _InputState extends State<Input> {
               border: InputBorder.none,
               hintText: widget.hintText,
               hintStyle: TextStyle(
-                fontSize: 13,
-                color: AppConfig.blackColor.withOpacity(0.15),
+                fontSize: 14,
+                color: AppConfig.blackColor.withOpacity(0.25),
                 fontWeight: FontWeight.w500,
               ),
             ),
             style: const TextStyle(
-              fontSize: 13,
+              fontSize: 14,
               color: AppConfig.blueColor,
               fontWeight: FontWeight.w700,
             ),

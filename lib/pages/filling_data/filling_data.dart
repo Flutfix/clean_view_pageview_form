@@ -11,7 +11,6 @@ import 'package:flutter_application_1/requests/post_order.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
@@ -31,14 +30,14 @@ class _FillingDataState extends State<FillingData> {
   late final TextEditingController controllerComment;
   late final TextEditingController controllerNumber;
   late final List<TextEditingController> requiredTextControllers;
-  late bool _canVibrate;
+  // late bool _canVibrate;
   late bool _loading;
 
   @override
   void initState() {
     super.initState();
-    _canVibrate = true;
-    _initVibrate();
+    // _canVibrate = true;
+    // _initVibrate();
     _loading = false;
     controllerCity = TextEditingController();
     controllerStreet = TextEditingController();
@@ -55,12 +54,12 @@ class _FillingDataState extends State<FillingData> {
     ];
   }
 
-  Future<void> _initVibrate() async {
-    bool canVibrate = await Vibrate.canVibrate;
-    setState(() {
-      _canVibrate = canVibrate;
-    });
-  }
+  // Future<void> _initVibrate() async {
+  //   bool canVibrate = await Vibrate.canVibrate;
+  //   setState(() {
+  //     _canVibrate = canVibrate;
+  //   });
+  // }
 
   Future<int> _postOrderLoading(GeneralController controller) async {
     setState(() {
@@ -177,14 +176,14 @@ class _FillingDataState extends State<FillingData> {
                                         border: InputBorder.none,
                                         hintText: 'Дом',
                                         hintStyle: TextStyle(
-                                          fontSize: 13,
+                                          fontSize: 14,
                                           color: AppConfig.blackColor
-                                              .withOpacity(0.15),
+                                              .withOpacity(0.25),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                       style: const TextStyle(
-                                        fontSize: 13,
+                                        fontSize: 14,
                                         color: AppConfig.blueColor,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -218,14 +217,14 @@ class _FillingDataState extends State<FillingData> {
                                         border: InputBorder.none,
                                         hintText: 'Квартира',
                                         hintStyle: TextStyle(
-                                          fontSize: 13,
+                                          fontSize: 14,
                                           color: AppConfig.blackColor
-                                              .withOpacity(0.15),
+                                              .withOpacity(0.25),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                       style: const TextStyle(
-                                        fontSize: 13,
+                                        fontSize: 14,
                                         color: AppConfig.blueColor,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -261,11 +260,11 @@ class _FillingDataState extends State<FillingData> {
                                                           text:
                                                               'Волшебное место, где можно написать полезный ',
                                                           style: TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize: 14,
                                                             color: AppConfig
                                                                 .blackColor
                                                                 .withOpacity(
-                                                                    0.15),
+                                                                    0.25),
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -273,7 +272,7 @@ class _FillingDataState extends State<FillingData> {
                                                         const TextSpan(
                                                           text: 'комментарий',
                                                           style: TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize: 14,
                                                             color: AppConfig
                                                                 .blueColor,
                                                             fontWeight:
@@ -284,11 +283,11 @@ class _FillingDataState extends State<FillingData> {
                                                           text:
                                                               ' для мастера, важные детали, удобное время приема',
                                                           style: TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize: 14,
                                                             color: AppConfig
                                                                 .blackColor
                                                                 .withOpacity(
-                                                                    0.15),
+                                                                    0.25),
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -316,7 +315,7 @@ class _FillingDataState extends State<FillingData> {
                                               border: InputBorder.none,
                                             ),
                                             style: const TextStyle(
-                                              fontSize: 13,
+                                              fontSize: 14,
                                               color: AppConfig.blueColor,
                                               fontWeight: FontWeight.w600,
                                             ),
@@ -441,26 +440,9 @@ class _FillingDataState extends State<FillingData> {
       );
       var statusCode = await _postOrderLoading(controller);
       if (statusCode == 200) {
-        if (_canVibrate) {
-          try {
-            Vibrate.feedback(FeedbackType.success);
-          } catch (e) {
-            // ignore: avoid_print
-            print(e);
-          }
-        }
         Navigator.of(context)
             .push(CustomPageRoute(const SuccessFullOrderPage()));
-      } else {
-        if (_canVibrate) {
-          try {
-            Vibrate.feedback(FeedbackType.error);
-          } catch (e) {
-            // ignore: avoid_print
-            print(e);
-          }
-        }
-      }
+      } else {}
       return;
     }
     for (int i = 0; i < requiredTextControllers.length; i++) {
