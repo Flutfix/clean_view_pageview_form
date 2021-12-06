@@ -440,9 +440,26 @@ class _FillingDataState extends State<FillingData> {
       );
       var statusCode = await _postOrderLoading(controller);
       if (statusCode == 200) {
+        // if (_canVibrate) {
+        //   try {
+        //     Vibrate.feedback(FeedbackType.success);
+        //   } catch (e) {
+        //     // ignore: avoid_print
+        //     print(e);
+        //   }
+        // }
         Navigator.of(context)
             .push(CustomPageRoute(const SuccessFullOrderPage()));
-      } else {}
+      } else {
+        // if (_canVibrate) {
+        //   try {
+        //     Vibrate.feedback(FeedbackType.error);
+        //   } catch (e) {
+        //     // ignore: avoid_print
+        //     print(e);
+        //   }
+        // }
+      }
       return;
     }
     for (int i = 0; i < requiredTextControllers.length; i++) {

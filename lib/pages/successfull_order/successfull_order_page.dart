@@ -6,7 +6,6 @@ import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_but
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
-// import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:swipe/swipe.dart';
 
 class SuccessFullOrderPage extends StatefulWidget {
@@ -17,7 +16,7 @@ class SuccessFullOrderPage extends StatefulWidget {
 }
 
 class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
-  late bool _canVibrate;
+  // late bool _canVibrate;
 
   @override
   void initState() {

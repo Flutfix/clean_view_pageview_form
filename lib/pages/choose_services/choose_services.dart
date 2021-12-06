@@ -9,7 +9,6 @@ import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
 import 'package:flutter_application_1/models/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe/swipe.dart';
 
@@ -25,7 +24,7 @@ class _ChooseServicesState extends State<ChooseServices> {
   late final List<ServicesModel> services;
   late int indexServices;
   late int indexColorServices;
-  late bool _canVibrate;
+  // late bool _canVibrate;
 
   @override
   void initState() {
