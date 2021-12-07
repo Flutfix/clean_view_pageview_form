@@ -1,4 +1,4 @@
-package com.example.super_clean
+package com.super_clean
 
 import io.flutter.embedding.android.FlutterActivity
 
