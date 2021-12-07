@@ -4,15 +4,19 @@ class AppConfig {
   // Название компании
   static const String companyName = 'Super Clean';
 
+  ///WhatsApp chat
+  static const String whatsAppUrl =
+      'https://api.whatsapp.com/send?phone=79855755577';
+
   /// Валюта
   static const String currency = 'руб';
   static const String currencySymbol = '₽';
 
   ///API Url
-  static const String apiUrl = "http://80.87.198.249:8888/";
+  static const String apiUrl = 'http://80.87.198.249:8888/';
 
   ///Шрифт
-  static const String fontFamilyInter = "Inter";
+  static const String fontFamilyInter = 'Inter';
 
   ///*------------------Цены-----------------------------*///
   /// 50 м2

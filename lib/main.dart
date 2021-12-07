@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/pages/plans_page_view/general.dart';
-import 'package:flutter_application_1/pages/successfull_order/successfull_order_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +26,7 @@ class MyApp extends StatelessWidget {
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: () => MaterialApp(
+          themeMode: ThemeMode.light,
           color: AppConfig.whiteColor,
           theme: ThemeData(fontFamily: AppConfig.fontFamilyInter),
           debugShowCheckedModeBanner: false,

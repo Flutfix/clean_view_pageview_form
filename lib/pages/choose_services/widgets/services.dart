@@ -64,8 +64,8 @@ class _ServicesState extends State<Services> {
             if (widget.services.count == 0) {
               setState(() {});
               widget.services.count += 1;
-            }
             widget.onTap(widget.services.price, widget.services.count);
+            }
           },
           child: Container(
             width: widget.width,

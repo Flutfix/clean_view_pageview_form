@@ -1,16 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final bool isBackArrow;
-  final double height;
-
   const CustomAppBar({
     Key? key,
     this.height = 60,
     this.isBackArrow = false,
+    this.isChatAvailable = false,
+    this.onChatTap,
   }) : super(key: key);
+
+  final bool isBackArrow;
+  final double height;
+  final bool isChatAvailable;
+  final Function()? onChatTap;
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -24,7 +30,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 10.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 22),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -46,9 +52,39 @@ class _CustomAppBarState extends State<CustomAppBar> {
             Padding(
                 padding: const EdgeInsets.only(top: 3),
                 child: _buildLogo(text: AppConfig.companyName)),
-            const SizedBox(width: 50),
+            widget.isChatAvailable
+                ? _buildChatButton(
+                    icon: 'lib/assets/images/chat.png',
+                    iconSize: 28,
+                    onTap: widget.onChatTap,
+                  )
+                : const SizedBox(width: 50),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildChatButton({
+    required String icon,
+    required Function()? onTap,
+    double? iconSize,
+  }) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: onTap,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          const SizedBox(
+            height: 30,
+            width: 50,
+          ),
+          Image.asset(
+            icon,
+            width: iconSize,
+          ),
+        ],
       ),
     );
   }

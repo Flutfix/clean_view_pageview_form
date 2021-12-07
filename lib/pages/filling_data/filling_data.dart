@@ -1,18 +1,21 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/api/post_order.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/controllers/general_controller.dart';
+import 'package:flutter_application_1/controllers/order_controller.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/input.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
 import 'package:flutter_application_1/pages/successfull_order/successfull_order_page.dart';
-import 'package:flutter_application_1/requests/post_order.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swipe/swipe.dart';
 
 class FillingData extends StatefulWidget {
@@ -30,14 +33,11 @@ class _FillingDataState extends State<FillingData> {
   late final TextEditingController controllerComment;
   late final TextEditingController controllerNumber;
   late final List<TextEditingController> requiredTextControllers;
-  // late bool _canVibrate;
   late bool _loading;
 
   @override
   void initState() {
     super.initState();
-    // _canVibrate = true;
-    // _initVibrate();
     _loading = false;
     controllerCity = TextEditingController();
     controllerStreet = TextEditingController();
@@ -45,6 +45,7 @@ class _FillingDataState extends State<FillingData> {
     controllerFlat = TextEditingController();
     controllerComment = TextEditingController();
     controllerNumber = TextEditingController();
+    _getClientInfo();
     requiredTextControllers = [
       controllerCity,
       controllerStreet,
@@ -53,13 +54,6 @@ class _FillingDataState extends State<FillingData> {
       controllerNumber,
     ];
   }
-
-  // Future<void> _initVibrate() async {
-  //   bool canVibrate = await Vibrate.canVibrate;
-  //   setState(() {
-  //     _canVibrate = canVibrate;
-  //   });
-  // }
 
   Future<int> _postOrderLoading(GeneralController controller) async {
     setState(() {
@@ -70,23 +64,47 @@ class _FillingDataState extends State<FillingData> {
     ///Request func
     var statusCode = await postOrder(
       endPoint: 'order',
-      square: controller.orderController.data!.square,
-      typeOfCleaning: controller.orderController.data!.typeOfCleaning,
-      extras: controller.orderController.data!.extras,
-      city: controller.orderController.data!.city,
-      street: controller.orderController.data!.street,
-      house: controller.orderController.data!.house,
-      flat: controller.orderController.data!.flat,
-      comment: controller.orderController.data!.comment,
-      phone: controller.orderController.data!.phone,
-      totalPrice: controller.orderController.data!.totalPrice,
+      data: controller.orderController.data!,
     );
-
+    if (statusCode == 200) {
+      await _updateClientInfo();
+    }
     setState(() {
       _loading = false;
     });
 
     return statusCode;
+  }
+
+  /// Update client info in shared preferences
+  Future<void> _updateClientInfo() async {
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    final bool _checkExistense = prefs.getBool('existense') ?? false;
+    if (!_checkExistense) {
+      prefs.setBool('existense', true);
+    }
+    prefs.setString('city', controllerCity.text);
+    prefs.setString('street', controllerStreet.text);
+    prefs.setString('home', controllerHome.text);
+    prefs.setString('flat', controllerFlat.text);
+    prefs.setString('phone', controllerNumber.text);
+  }
+
+  /// Get client info from shared preferences
+  Future<void> _getClientInfo() async {
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await _prefs;
+    final bool _checkExistense = prefs.getBool('existense') ?? false;
+    if (_checkExistense) {
+      setState(() {
+        controllerCity.text = prefs.getString('city') ?? '';
+        controllerStreet.text = prefs.getString('street') ?? '';
+        controllerHome.text = prefs.getString('home') ?? '';
+        controllerFlat.text = prefs.getString('flat') ?? '';
+        controllerNumber.text = prefs.getString('phone') ?? '';
+      });
+    }
   }
 
   @override
@@ -176,14 +194,14 @@ class _FillingDataState extends State<FillingData> {
                                         border: InputBorder.none,
                                         hintText: 'Дом',
                                         hintStyle: TextStyle(
-                                          fontSize: 13,
+                                          fontSize: 14,
                                           color: AppConfig.blackColor
-                                              .withOpacity(0.15),
+                                              .withOpacity(0.25),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                       style: const TextStyle(
-                                        fontSize: 13,
+                                        fontSize: 14,
                                         color: AppConfig.blueColor,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -217,14 +235,14 @@ class _FillingDataState extends State<FillingData> {
                                         border: InputBorder.none,
                                         hintText: 'Квартира',
                                         hintStyle: TextStyle(
-                                          fontSize: 13,
+                                          fontSize: 14,
                                           color: AppConfig.blackColor
-                                              .withOpacity(0.15),
+                                              .withOpacity(0.25),
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                       style: const TextStyle(
-                                        fontSize: 13,
+                                        fontSize: 14,
                                         color: AppConfig.blueColor,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -260,11 +278,11 @@ class _FillingDataState extends State<FillingData> {
                                                           text:
                                                               'Волшебное место, где можно написать полезный ',
                                                           style: TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize: 14,
                                                             color: AppConfig
                                                                 .blackColor
                                                                 .withOpacity(
-                                                                    0.15),
+                                                                    0.25),
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -272,7 +290,7 @@ class _FillingDataState extends State<FillingData> {
                                                         const TextSpan(
                                                           text: 'комментарий',
                                                           style: TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize: 14,
                                                             color: AppConfig
                                                                 .blueColor,
                                                             fontWeight:
@@ -283,11 +301,11 @@ class _FillingDataState extends State<FillingData> {
                                                           text:
                                                               ' для мастера, важные детали, удобное время приема',
                                                           style: TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize: 14,
                                                             color: AppConfig
                                                                 .blackColor
                                                                 .withOpacity(
-                                                                    0.15),
+                                                                    0.25),
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -315,7 +333,7 @@ class _FillingDataState extends State<FillingData> {
                                               border: InputBorder.none,
                                             ),
                                             style: const TextStyle(
-                                              fontSize: 13,
+                                              fontSize: 14,
                                               color: AppConfig.blueColor,
                                               fontWeight: FontWeight.w600,
                                             ),
@@ -440,26 +458,9 @@ class _FillingDataState extends State<FillingData> {
       );
       var statusCode = await _postOrderLoading(controller);
       if (statusCode == 200) {
-        // if (_canVibrate) {
-        //   try {
-        //     Vibrate.feedback(FeedbackType.success);
-        //   } catch (e) {
-        //     // ignore: avoid_print
-        //     print(e);
-        //   }
-        // }
         Navigator.of(context)
             .push(CustomPageRoute(const SuccessFullOrderPage()));
-      } else {
-        // if (_canVibrate) {
-        //   try {
-        //     Vibrate.feedback(FeedbackType.error);
-        //   } catch (e) {
-        //     // ignore: avoid_print
-        //     print(e);
-        //   }
-        // }
-      }
+      } else {}
       return;
     }
     for (int i = 0; i < requiredTextControllers.length; i++) {
