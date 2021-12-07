@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/controllers/general_controller.dart';
@@ -12,6 +14,7 @@ import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class General extends StatefulWidget {
   const General({Key? key}) : super(key: key);
@@ -71,7 +74,7 @@ class _GeneralState extends State<General> {
       ),
       PointRowModel(
         title: 'Воскресим Порядок',
-        description: 'Постель заправлена, чистоста',
+        description: 'Постель заправлена, чистота',
         icon: 'lib/assets/images/butterfly.png',
         isDoubleColor: true,
       ),
@@ -103,7 +106,19 @@ class _GeneralState extends State<General> {
     var controller = Provider.of<GeneralController>(context);
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: const CustomAppBar(),
+        appBar: CustomAppBar(
+          isChatAvailable: true,
+          onChatTap: () async {
+            try {
+              if (await canLaunch(AppConfig.whatsAppUrl)) {
+                launch(AppConfig.whatsAppUrl);
+              }
+            } catch (e) {
+              // ignore: avoid_print
+              print(e);
+            }
+          },
+        ),
         backgroundColor: AppConfig.whiteColor,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,9 +186,7 @@ class _GeneralState extends State<General> {
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         width: width,
-                        height: MediaQuery.of(context).size.height > 812
-                            ? 354.h
-                            : 270.h,
+                        height: 354.h,
                         decoration: BoxDecoration(
                           color: AppConfig.whiteColor,
                           borderRadius: const BorderRadius.only(
