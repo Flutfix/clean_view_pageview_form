@@ -13,6 +13,7 @@ import 'package:flutter_application_1/pages/successfull_order/successfull_order_
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,10 +35,13 @@ class _FillingDataState extends State<FillingData> {
   late final TextEditingController controllerNumber;
   late final List<TextEditingController> requiredTextControllers;
   late bool _loading;
+  late bool _canVibrate;
 
   @override
   void initState() {
     super.initState();
+    _canVibrate = true;
+    _initVibrate();
     _loading = false;
     controllerCity = TextEditingController();
     controllerStreet = TextEditingController();
@@ -68,12 +72,37 @@ class _FillingDataState extends State<FillingData> {
     );
     if (statusCode == 200) {
       await _updateClientInfo();
+      if (_canVibrate) {
+        try {
+          Vibrate.feedback(FeedbackType.success);
+        } catch (e) {
+          // ignore: avoid_print
+          print(e);
+        }
+      }
+    } else {
+      if (_canVibrate) {
+        try {
+          Vibrate.feedback(FeedbackType.error);
+        } catch (e) {
+          // ignore: avoid_print
+          print(e);
+        }
+      }
     }
+
     setState(() {
       _loading = false;
     });
 
-    return statusCode;
+    return statusCode ?? 0;
+  }
+
+  Future<void> _initVibrate() async {
+    bool canVibrate = await Vibrate.canVibrate;
+    setState(() {
+      _canVibrate = canVibrate;
+    });
   }
 
   /// Update client info in shared preferences
@@ -460,7 +489,7 @@ class _FillingDataState extends State<FillingData> {
       if (statusCode == 200) {
         Navigator.of(context)
             .push(CustomPageRoute(const SuccessFullOrderPage()));
-      } else {}
+      }
       return;
     }
     for (int i = 0; i < requiredTextControllers.length; i++) {

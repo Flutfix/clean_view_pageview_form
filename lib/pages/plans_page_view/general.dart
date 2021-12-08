@@ -13,6 +13,7 @@ import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,7 +29,7 @@ class _GeneralState extends State<General> {
   late ScrollController pageControllerBackground;
   late List<PointRowModel> pointsList;
   late List<InfoCardModel> cardsList;
-  // late bool _canVibrate;
+  late bool _canVibrate;
 
   // Градиенты
   late Color pointGradientStart;
@@ -41,8 +42,8 @@ class _GeneralState extends State<General> {
   @override
   void initState() {
     super.initState();
-    // _canVibrate = true;
-    // _initVibrate();
+    _canVibrate = true;
+    _initVibrate();
 
     currentIndex = 0;
     setconfigurationPage(currentIndex);
@@ -91,15 +92,15 @@ class _GeneralState extends State<General> {
     ];
   }
 
-  // Future<void> _initVibrate() async {
-  //   bool canVibrate = await Vibrate.canVibrate;
-  //   setState(() {
-  //     _canVibrate = canVibrate;
-  //     _canVibrate
-  //         ? debugPrint('This device can vibrate')
-  //         : debugPrint('This device cannot vibrate');
-  //   });
-  // }
+  Future<void> _initVibrate() async {
+    bool canVibrate = await Vibrate.canVibrate;
+    setState(() {
+      _canVibrate = canVibrate;
+      _canVibrate
+          ? debugPrint('This device can vibrate')
+          : debugPrint('This device cannot vibrate');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -250,14 +251,14 @@ class _GeneralState extends State<General> {
                     controller.orderController.setSquare(index: currentIndex);
                     controller.orderController
                         .countTotal(cardsList[currentIndex].price);
-                    // if (_canVibrate) {
-                    //   try {
-                    //     Vibrate.feedback(FeedbackType.light);
-                    //   } catch (e) {
-                    //     // ignore: avoid_print
-                    //     print(e);
-                    //   }
-                    // }
+                    if (_canVibrate) {
+                      try {
+                        Vibrate.feedback(FeedbackType.light);
+                      } catch (e) {
+                        // ignore: avoid_print
+                        print(e);
+                      }
+                    }
                     Navigator.of(context)
                         .push(CustomPageRoute(const ChooseServices()));
                   },
