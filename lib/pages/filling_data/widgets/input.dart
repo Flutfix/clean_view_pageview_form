@@ -49,6 +49,7 @@ class _InputState extends State<Input> {
             onChanged: (_) {
               setState(() {});
             },
+            
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(bottom: 5.0),
