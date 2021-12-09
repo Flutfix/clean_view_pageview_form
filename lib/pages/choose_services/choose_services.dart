@@ -4,6 +4,7 @@ import 'package:flutter_application_1/controllers/general_controller.dart';
 import 'package:flutter_application_1/pages/choose_services/widgets/services.dart';
 import 'package:flutter_application_1/pages/filling_data/filling_data.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
+import 'package:flutter_application_1/utils/vibration.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
@@ -95,14 +96,10 @@ class _ChooseServicesState extends State<ChooseServices> {
                                       oldIndex: indexServices,
                                       newIndex: 0,
                                     );
-                                    if (_canVibrate) {
-                                      try {
-                                        Vibrate.feedback(FeedbackType.light);
-                                      } catch (e) {
-                                        // ignore: avoid_print
-                                        print(e);
-                                      }
-                                    }
+                                    Vibro().start(
+                                      _canVibrate,
+                                      feedbackType: FeedbackType.light,
+                                    );
                                     setState(() {
                                       indexServices = 0;
                                       indexColorServices = 0;
@@ -135,14 +132,10 @@ class _ChooseServicesState extends State<ChooseServices> {
                                       oldIndex: indexServices,
                                       newIndex: 1,
                                     );
-                                    if (_canVibrate) {
-                                      try {
-                                        Vibrate.feedback(FeedbackType.light);
-                                      } catch (e) {
-                                        // ignore: avoid_print
-                                        print(e);
-                                      }
-                                    }
+                                    Vibro().start(
+                                      _canVibrate,
+                                      feedbackType: FeedbackType.light,
+                                    );
                                     setState(() {
                                       indexServices = 1;
                                     });
@@ -176,15 +169,10 @@ class _ChooseServicesState extends State<ChooseServices> {
                                       oldIndex: indexServices,
                                       newIndex: 2,
                                     );
-                                    if (_canVibrate) {
-                                      try {
-                                        Vibrate.feedback(
-                                            FeedbackType.light);
-                                      } catch (e) {
-                                        // ignore: avoid_print
-                                        print(e);
-                                      }
-                                    }
+                                    Vibro().start(
+                                      _canVibrate,
+                                      feedbackType: FeedbackType.light,
+                                    );
                                     setState(() {
                                       indexServices = 2;
                                       indexColorServices = 2;
@@ -262,14 +250,10 @@ class _ChooseServicesState extends State<ChooseServices> {
                                     isGarbageCollection:
                                         index == 3 ? true : false,
                                     onTap: (dopTotal, dopCount) {
-                                      if (_canVibrate) {
-                                        try {
-                                          Vibrate.feedback(FeedbackType.light);
-                                        } catch (e) {
-                                          // ignore: avoid_print
-                                          print(e);
-                                        }
-                                      }
+                                      Vibro().start(
+                                        _canVibrate,
+                                        feedbackType: FeedbackType.light,
+                                      );
                                       setState(() {
                                         controller.orderController
                                             .countTotal(dopTotal);
@@ -353,14 +337,10 @@ class _ChooseServicesState extends State<ChooseServices> {
                     onTap: () {
                       controller.orderController
                           .setTypeOfCleaning(index: indexServices);
-                      if (_canVibrate) {
-                        try {
-                          Vibrate.feedback(FeedbackType.light);
-                        } catch (e) {
-                          // ignore: avoid_print
-                          print(e);
-                        }
-                      }
+                      Vibro().start(
+                        _canVibrate,
+                        feedbackType: FeedbackType.light,
+                      );
                       Navigator.of(context).push(
                         CustomPageRoute(
                           const FillingData(),

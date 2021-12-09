@@ -3,6 +3,7 @@ import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/pages/filling_data/widgets/container_with_star.dart';
 import 'package:flutter_application_1/pages/plans_page_view/general.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
+import 'package:flutter_application_1/utils/vibration.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
@@ -103,14 +104,10 @@ class _SuccessFullOrderPageState extends State<SuccessFullOrderPage> {
                     startColor: AppConfig.stepsGradientStartThird,
                     endColor: AppConfig.stepsGradientEndThird,
                     onTap: () {
-                      if (_canVibrate) {
-                        try {
-                          Vibrate.feedback(FeedbackType.light);
-                        } catch (e) {
-                          // ignore: avoid_print
-                          print(e);
-                        }
-                      }
+                      Vibro().start(
+                        _canVibrate,
+                        feedbackType: FeedbackType.light,
+                      );
                       Navigator.of(context).pushAndRemoveUntil(
                           CustomPageRoute(const General()), (r) => false);
                     },

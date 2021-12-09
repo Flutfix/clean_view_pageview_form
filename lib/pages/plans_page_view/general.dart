@@ -9,6 +9,7 @@ import 'package:flutter_application_1/pages/choose_services/choose_services.dart
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/plan_card.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/plan_position.dart';
+import 'package:flutter_application_1/utils/vibration.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -251,14 +252,10 @@ class _GeneralState extends State<General> {
                     controller.orderController.setSquare(index: currentIndex);
                     controller.orderController
                         .countTotal(cardsList[currentIndex].price);
-                    if (_canVibrate) {
-                      try {
-                        Vibrate.feedback(FeedbackType.light);
-                      } catch (e) {
-                        // ignore: avoid_print
-                        print(e);
-                      }
-                    }
+                    Vibro().start(
+                      _canVibrate,
+                      feedbackType: FeedbackType.light,
+                    );
                     Navigator.of(context)
                         .push(CustomPageRoute(const ChooseServices()));
                   },
