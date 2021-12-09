@@ -10,6 +10,7 @@ import 'package:flutter_application_1/pages/filling_data/widgets/container_with_
 import 'package:flutter_application_1/pages/filling_data/widgets/input.dart';
 import 'package:flutter_application_1/pages/plans_page_view/widgets/gradient_button.dart';
 import 'package:flutter_application_1/pages/successfull_order/successfull_order_page.dart';
+import 'package:flutter_application_1/utils/vibration.dart';
 import 'package:flutter_application_1/widgets/custom_app_bar.dart';
 import 'package:flutter_application_1/widgets/custom_transition.dart';
 import 'package:flutter_application_1/widgets/default_container.dart';
@@ -72,23 +73,15 @@ class _FillingDataState extends State<FillingData> {
     );
     if (statusCode == 200) {
       await _updateClientInfo();
-      if (_canVibrate) {
-        try {
-          Vibrate.feedback(FeedbackType.success);
-        } catch (e) {
-          // ignore: avoid_print
-          print(e);
-        }
-      }
+      Vibro().start(
+        _canVibrate,
+        feedbackType: FeedbackType.success,
+      );
     } else {
-      if (_canVibrate) {
-        try {
-          Vibrate.feedback(FeedbackType.error);
-        } catch (e) {
-          // ignore: avoid_print
-          print(e);
-        }
-      }
+      Vibro().start(
+        _canVibrate,
+        feedbackType: FeedbackType.error,
+      );
     }
 
     setState(() {
