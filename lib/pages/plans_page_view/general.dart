@@ -112,8 +112,8 @@ class _GeneralState extends State<General> {
           isChatAvailable: true,
           onChatTap: () async {
             try {
-              if (await canLaunch(AppConfig.whatsAppUrl)) {
-                launch(AppConfig.whatsAppUrl);
+              if (await canLaunch(AppConfig.tlgBotUrl)) {
+                launch(AppConfig.tlgBotUrl);
               }
             } catch (e) {
               // ignore: avoid_print
@@ -160,6 +160,8 @@ class _GeneralState extends State<General> {
                                     .setSquare(index: currentIndex);
                                 controller.orderController
                                     .countTotal(cardsList[currentIndex].price);
+                                Vibro().start(_canVibrate,
+                                    feedbackType: FeedbackType.light);
                                 Navigator.of(context).push(
                                     CustomPageRoute(const ChooseServices()));
                               },

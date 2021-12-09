@@ -4,9 +4,9 @@ class AppConfig {
   // Название компании
   static const String companyName = 'Super Clean';
 
-  ///WhatsApp chat
-  static const String whatsAppUrl =
-      'https://api.whatsapp.com/send?phone=79855755577';
+  ///Telegram bot support
+  static const String tlgBotUrl =
+      'https://t.me/supercleanapp_bot';
 
   /// Валюта
   static const String currency = 'руб';
