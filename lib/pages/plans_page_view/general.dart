@@ -86,7 +86,7 @@ class _GeneralState extends State<General> {
         icon: 'lib/assets/images/sun.png',
       ),
       PointRowModel(
-        title: 'Анигиляция пыли',
+        title: 'Аннигиляция пыли',
         description: 'Kärcher Home & Garden',
         icon: 'lib/assets/images/bird.png',
       ),
