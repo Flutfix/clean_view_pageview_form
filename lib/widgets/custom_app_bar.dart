@@ -33,6 +33,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 22),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             widget.isBackArrow
                 ? GestureDetector(
@@ -40,12 +41,18 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(19, 0, 21, 0),
-                      child: SvgPicture.asset(
-                        'lib/assets/images/back_arrow.svg',
-                        width: 10,
-                      ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(19, 0, 21, 0),
+                          child: SvgPicture.asset(
+                            'lib/assets/images/back_arrow.svg',
+                            width: 10,
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                      ],
                     ),
                   )
                 : const SizedBox(width: 50),
